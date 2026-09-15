@@ -1,0 +1,2497 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no">
+
+<meta name="description"
+      content="xtayze — Video Editor">
+
+<title>xtayze — Video Editor</title>
+
+
+<style>
+
+/* ========================================
+   RESET
+======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #080808;
+
+    color: #ffffff;
+
+    overflow-x: hidden;
+}
+
+::selection {
+    background: #ff0080;
+    color: #ffffff;
+}
+
+
+/* ========================================
+   BACKGROUND
+======================================== */
+
+.background {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -10;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+.grid {
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0.035;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.5) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.5) 1px,
+            transparent 1px
+        );
+
+    background-size: 70px 70px;
+}
+
+.glow {
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,0,128,0.09);
+
+    filter: blur(120px);
+
+    transform:
+        translate(-50%, -50%);
+}
+
+
+/* ========================================
+   NAVIGATION
+======================================== */
+
+nav {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 80px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 7%;
+
+    z-index: 100;
+
+    background:
+        rgba(8,8,8,0.75);
+
+    backdrop-filter:
+        blur(20px);
+
+    -webkit-backdrop-filter:
+        blur(20px);
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,0.06);
+}
+
+.logo {
+    color: #ffffff;
+
+    font-size: 24px;
+
+    font-weight: 900;
+
+    letter-spacing: -1px;
+
+    text-decoration: none;
+}
+
+.logo span {
+    color: #ff0080;
+}
+
+.nav-links {
+    display: flex;
+
+    align-items: center;
+
+    gap: 35px;
+
+    list-style: none;
+}
+
+.nav-links a {
+    color: #888888;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition:
+        color .3s ease;
+}
+
+.nav-links a:hover {
+    color: #ffffff;
+}
+
+
+/* ========================================
+   HERO
+======================================== */
+
+.hero {
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    padding:
+        140px 8% 100px;
+}
+
+.hero-content {
+    max-width: 1100px;
+}
+
+.eyebrow {
+    color: #ff0080;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    font-size:
+        clamp(
+            75px,
+            13vw,
+            175px
+        );
+
+    line-height: .82;
+
+    letter-spacing: -10px;
+
+    font-weight: 900;
+}
+
+.hero h1 span {
+    color: #ff0080;
+}
+
+.hero-text {
+    max-width: 620px;
+
+    margin-top: 45px;
+
+    color: #999999;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+}
+
+.buttons {
+    display: flex;
+
+    gap: 15px;
+
+    margin-top: 40px;
+
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 52px;
+
+    padding:
+        0 28px;
+
+    border-radius: 100px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        background .3s ease,
+        border .3s ease;
+}
+
+.primary {
+    background: #ff0080;
+
+    color: #ffffff;
+}
+
+.primary:hover {
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 15px 50px
+        rgba(255,0,128,.3);
+}
+
+.secondary {
+    color: #ffffff;
+
+    border:
+        1px solid #333333;
+}
+
+.secondary:hover {
+    background: #151515;
+
+    border-color: #555555;
+
+    transform:
+        translateY(-4px);
+}
+
+
+/* ========================================
+   SECTIONS
+======================================== */
+
+section {
+    padding:
+        130px 8%;
+}
+
+.section-label {
+    color: #ff0080;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 15px;
+}
+
+.section-title {
+    font-size:
+        clamp(
+            45px,
+            7vw,
+            90px
+        );
+
+    letter-spacing: -5px;
+
+    line-height: 1;
+
+    margin-bottom: 60px;
+}
+
+
+/* ========================================
+   PORTFOLIO
+======================================== */
+
+.works {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 25px;
+
+    align-items: start;
+}
+
+.work {
+    position: relative;
+
+    overflow: hidden;
+
+    aspect-ratio:
+        16 / 10;
+
+    border-radius: 20px;
+
+    background: #111111;
+
+    border:
+        1px solid #222222;
+
+    cursor: pointer;
+
+    transition:
+        transform .4s ease,
+        border .4s ease,
+        box-shadow .4s ease;
+}
+
+.work:hover {
+    transform:
+        translateY(-8px);
+
+    border-color:
+        rgba(255,0,128,.7);
+
+    box-shadow:
+        0 20px 70px
+        rgba(0,0,0,.5);
+}
+
+.work video {
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    background: #111111;
+
+    transition:
+        transform .6s ease;
+}
+
+.work:hover video {
+    transform:
+        scale(1.04);
+}
+
+
+/* ========================================
+   VIDEO 3 — VERTICAL
+======================================== */
+
+.work-vertical {
+    aspect-ratio:
+        9 / 16;
+
+    grid-row:
+        span 2;
+}
+
+.work-vertical video {
+    object-fit: cover;
+}
+
+
+/* ========================================
+   VIDEO INFO
+======================================== */
+
+.work-info {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    bottom: 0;
+
+    padding:
+        80px 25px 25px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,.95)
+        );
+
+    pointer-events: none;
+}
+
+.work-info h3 {
+    font-size: 20px;
+
+    margin-bottom: 7px;
+}
+
+.work-info p {
+    color: #aaaaaa;
+
+    font-size: 13px;
+}
+
+
+/* ========================================
+   PLAY BUTTON
+======================================== */
+
+.play-indicator {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 65px;
+
+    height: 65px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.12);
+
+    border:
+        1px solid
+        rgba(255,255,255,.25);
+
+    backdrop-filter:
+        blur(10px);
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease;
+
+    pointer-events: none;
+}
+
+.play-indicator::after {
+    content: "";
+
+    margin-left: 4px;
+
+    width: 0;
+
+    height: 0;
+
+    border-top:
+        9px solid transparent;
+
+    border-bottom:
+        9px solid transparent;
+
+    border-left:
+        14px solid #ffffff;
+}
+
+.work.playing .play-indicator {
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.7);
+}
+
+
+/* ========================================
+   HIDDEN VIDEO
+======================================== */
+
+.work.hidden {
+    display: none;
+}
+
+
+/* ========================================
+   SERVICES
+======================================== */
+
+.services {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+.service {
+    min-height: 230px;
+
+    padding: 35px;
+
+    border:
+        1px solid #222222;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,.015);
+
+    transition:
+        transform .35s ease,
+        border .35s ease;
+}
+
+.service:hover {
+    transform:
+        translateY(-7px);
+
+    border-color:
+        #ff0080;
+}
+
+.service-number {
+    color: #ff0080;
+
+    font-size: 13px;
+
+    margin-bottom: 45px;
+}
+
+.service h3 {
+    font-size: 22px;
+
+    margin-bottom: 15px;
+}
+
+.service p {
+    color: #888888;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* ========================================
+   ABOUT
+======================================== */
+
+.about {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 80px;
+
+    align-items: center;
+}
+
+.about h2 {
+    font-size:
+        clamp(
+            50px,
+            7vw,
+            90px
+        );
+
+    line-height: .9;
+
+    letter-spacing: -5px;
+}
+
+.about h2 span {
+    color: #ff0080;
+}
+
+.about-text {
+    color: #999999;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 15px;
+
+    margin-top: 30px;
+}
+
+.stat {
+    padding: 25px;
+
+    border:
+        1px solid #222222;
+
+    border-radius: 15px;
+}
+
+.stat strong {
+    display: block;
+
+    font-size: 30px;
+
+    margin-bottom: 5px;
+}
+
+.stat span {
+    color: #777777;
+
+    font-size: 13px;
+}
+
+
+/* ========================================
+   CONTACT
+======================================== */
+
+.contact {
+    text-align: center;
+
+    padding-top: 160px;
+
+    padding-bottom: 160px;
+}
+
+.contact h2 {
+    font-size:
+        clamp(
+            60px,
+            10vw,
+            140px
+        );
+
+    line-height: .85;
+
+    letter-spacing: -8px;
+}
+
+.contact h2 span {
+    color: #ff0080;
+}
+
+.contact p {
+    max-width: 520px;
+
+    margin:
+        35px auto;
+
+    color: #888888;
+
+    line-height: 1.7;
+}
+
+.contact-links {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding:
+        25px 8%;
+
+    border-top:
+        1px solid #1c1c1c;
+
+    color: #555555;
+
+    font-size: 12px;
+}
+
+footer strong {
+    color: #ffffff;
+}
+
+
+/* ========================================
+   SCROLL ANIMATION
+======================================== */
+
+.reveal {
+    opacity: 0;
+
+    transform:
+        translateY(35px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* ========================================
+   VIDEO MODAL
+======================================== */
+
+.video-modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+
+    background:
+        rgba(0,0,0,.94);
+
+    backdrop-filter:
+        blur(15px);
+}
+
+.video-modal.active {
+    display: flex;
+}
+
+.video-modal video {
+    max-width: 95vw;
+
+    max-height: 90vh;
+
+    width: auto;
+
+    height: auto;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 30px 100px
+        rgba(0,0,0,.8);
+}
+
+.close-video {
+    position: absolute;
+
+    top: 25px;
+
+    right: 30px;
+
+    width: 50px;
+
+    height: 50px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid #444444;
+
+    background:
+        rgba(255,255,255,.08);
+
+    color: white;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    z-index: 10;
+
+    transition:
+        background .3s ease;
+}
+
+.close-video:hover {
+    background:
+        #ff0080;
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 900px) {
+
+    .services {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .about {
+        gap: 40px;
+    }
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+
+
+    /* --------------------------------
+       BODY
+    -------------------------------- */
+
+    body {
+        width: 100%;
+
+        overflow-x: hidden;
+    }
+
+
+    /* --------------------------------
+       NAVIGATION
+    -------------------------------- */
+
+    nav {
+        height: 65px;
+
+        padding:
+            0 20px;
+    }
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+
+    /* --------------------------------
+       HERO
+    -------------------------------- */
+
+    .hero {
+        min-height:
+            100svh;
+
+        padding:
+            120px 20px 60px;
+
+        align-items:
+            center;
+    }
+
+    .hero-content {
+        width: 100%;
+    }
+
+    .eyebrow {
+        font-size: 10px;
+
+        letter-spacing: 2.5px;
+
+        margin-bottom: 24px;
+    }
+
+    .hero h1 {
+        font-size:
+            clamp(
+                65px,
+                22vw,
+                110px
+            );
+
+        line-height:
+            .82;
+
+        letter-spacing:
+            -6px;
+
+        word-break:
+            break-word;
+    }
+
+    .hero-text {
+        margin-top: 30px;
+
+        max-width: 100%;
+
+        font-size: 15px;
+
+        line-height: 1.65;
+    }
+
+    .buttons {
+        width: 100%;
+
+        margin-top: 30px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+    .btn {
+        width: 100%;
+
+        min-height: 54px;
+
+        padding:
+            0 20px;
+
+        font-size: 14px;
+    }
+
+
+    /* --------------------------------
+       SECTIONS
+    -------------------------------- */
+
+    section {
+        padding:
+            80px 20px;
+    }
+
+    .section-label {
+        font-size: 10px;
+
+        letter-spacing: 2px;
+
+        margin-bottom: 12px;
+    }
+
+    .section-title {
+        font-size:
+            clamp(
+                42px,
+                14vw,
+                65px
+            );
+
+        letter-spacing:
+            -3px;
+
+        margin-bottom: 35px;
+    }
+
+
+    /* --------------------------------
+       PORTFOLIO
+    -------------------------------- */
+
+    .works {
+        display: flex;
+
+        flex-direction: column;
+
+        width: 100%;
+
+        gap: 16px;
+    }
+
+    .work {
+        width: 100%;
+
+        aspect-ratio:
+            16 / 10;
+
+        border-radius:
+            16px;
+    }
+
+    .work:hover {
+        transform:
+            none;
+
+        box-shadow:
+            none;
+    }
+
+    .work:hover video {
+        transform:
+            none;
+    }
+
+
+    /* --------------------------------
+       VIDEO 3 MOBILE
+    -------------------------------- */
+
+    .work-vertical {
+        width: 100%;
+
+        aspect-ratio:
+            9 / 16;
+
+        grid-row:
+            auto;
+
+        align-self:
+            center;
+
+        max-height:
+            680px;
+    }
+
+    .work-vertical video {
+        object-fit:
+            cover;
+    }
+
+
+    /* --------------------------------
+       VIDEO INFO
+    -------------------------------- */
+
+    .work-info {
+        padding:
+            80px 18px 18px;
+    }
+
+    .work-info h3 {
+        font-size:
+            17px;
+
+        margin-bottom:
+            5px;
+    }
+
+    .work-info p {
+        font-size:
+            11px;
+    }
+
+
+    /* --------------------------------
+       PLAY BUTTON
+    -------------------------------- */
+
+    .play-indicator {
+        width:
+            55px;
+
+        height:
+            55px;
+    }
+
+    .play-indicator::after {
+        border-top-width:
+            8px;
+
+        border-bottom-width:
+            8px;
+
+        border-left-width:
+            12px;
+    }
+
+
+    /* --------------------------------
+       SERVICES
+    -------------------------------- */
+
+    .services {
+        display: flex;
+
+        flex-direction:
+            column;
+
+        gap: 12px;
+    }
+
+    .service {
+        min-height:
+            auto;
+
+        padding:
+            25px;
+
+        border-radius:
+            15px;
+    }
+
+    .service-number {
+        margin-bottom:
+            28px;
+    }
+
+    .service h3 {
+        font-size:
+            20px;
+
+        margin-bottom:
+            10px;
+    }
+
+    .service p {
+        font-size:
+            14px;
+
+        line-height:
+            1.6;
+    }
+
+
+    /* --------------------------------
+       ABOUT
+    -------------------------------- */
+
+    .about {
+        display:
+            flex;
+
+        flex-direction:
+            column;
+
+        gap:
+            40px;
+
+        align-items:
+            flex-start;
+    }
+
+    .about h2 {
+        font-size:
+            clamp(
+                48px,
+                16vw,
+                75px
+            );
+
+        letter-spacing:
+            -4px;
+    }
+
+    .about-text {
+        font-size:
+            15px;
+
+        line-height:
+            1.7;
+    }
+
+    .stats {
+        width:
+            100%;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap:
+            10px;
+
+        margin-top:
+            25px;
+    }
+
+    .stat {
+        padding:
+            18px;
+
+        border-radius:
+            12px;
+    }
+
+    .stat strong {
+        font-size:
+            24px;
+    }
+
+    .stat span {
+        font-size:
+            11px;
+    }
+
+
+    /* --------------------------------
+       CONTACT
+    -------------------------------- */
+
+    .contact {
+        padding:
+            100px 20px;
+    }
+
+    .contact h2 {
+        font-size:
+            clamp(
+                58px,
+                18vw,
+                90px
+            );
+
+        letter-spacing:
+            -5px;
+    }
+
+    .contact p {
+        font-size:
+            15px;
+
+        margin:
+            30px auto;
+
+        line-height:
+            1.65;
+    }
+
+    .contact-links {
+        display:
+            flex;
+
+        flex-direction:
+            column;
+
+        width:
+            100%;
+
+        gap:
+            10px;
+    }
+
+
+    /* --------------------------------
+       FOOTER
+    -------------------------------- */
+
+    footer {
+        display:
+            flex;
+
+        flex-direction:
+            column;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        text-align:
+            center;
+
+        gap:
+            8px;
+
+        padding:
+            25px 20px;
+
+        font-size:
+            11px;
+    }
+
+
+    /* --------------------------------
+       MODAL
+    -------------------------------- */
+
+    .video-modal {
+        padding:
+            15px;
+    }
+
+    .video-modal video {
+        max-width:
+            100vw;
+
+        max-height:
+            85vh;
+
+        border-radius:
+            10px;
+    }
+
+    .close-video {
+        top:
+            15px;
+
+        right:
+            15px;
+
+        width:
+            45px;
+
+        height:
+            45px;
+
+        font-size:
+            24px;
+    }
+
+
+    /* --------------------------------
+       GLOW
+    -------------------------------- */
+
+    .glow {
+        width:
+            250px;
+
+        height:
+            250px;
+
+        filter:
+            blur(100px);
+    }
+
+}
+
+
+/* ========================================
+   VERY SMALL PHONES
+======================================== */
+
+@media (max-width: 380px) {
+
+    .hero {
+        padding-left:
+            16px;
+
+        padding-right:
+            16px;
+    }
+
+    section {
+        padding-left:
+            16px;
+
+        padding-right:
+            16px;
+    }
+
+    .hero h1 {
+        font-size:
+            21vw;
+
+        letter-spacing:
+            -5px;
+    }
+
+    .stats {
+        gap:
+            8px;
+    }
+
+    .stat {
+        padding:
+            15px;
+    }
+
+}
+
+
+/* ========================================
+   REDUCE MOTION
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    * {
+        scroll-behavior:
+            auto !important;
+
+        animation-duration:
+            0.01ms !important;
+
+        transition-duration:
+            0.01ms !important;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ========================================
+     BACKGROUND
+======================================== -->
+
+<div class="background">
+
+    <div class="grid"></div>
+
+    <div class="glow"></div>
+
+</div>
+
+
+<!-- ========================================
+     NAVIGATION
+======================================== -->
+
+<nav>
+
+    <a
+        href="#"
+        class="logo">
+
+        xtayze<span>.</span>
+
+    </a>
+
+
+    <ul class="nav-links">
+
+        <li>
+            <a href="#works">
+                Работы
+            </a>
+        </li>
+
+        <li>
+            <a href="#services">
+                Услуги
+            </a>
+        </li>
+
+        <li>
+            <a href="#about">
+                Обо мне
+            </a>
+        </li>
+
+        <li>
+            <a href="#contact">
+                Контакты
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- ========================================
+     HERO
+======================================== -->
+
+<header class="hero">
+
+    <div class="hero-content reveal">
+
+        <div class="eyebrow">
+            Video Editor / After Effects
+        </div>
+
+
+        <h1>
+            xtayze<span>.</span>
+        </h1>
+
+
+        <p class="hero-text">
+
+            Создаю динамичный и современный
+            видеомонтаж, который удерживает
+            внимание и помогает контенту
+            выглядеть профессионально.
+
+        </p>
+
+
+        <div class="buttons">
+
+            <a
+                href="#works"
+                class="btn primary">
+
+                Смотреть работы
+
+            </a>
+
+
+            <a
+                href="https://t.me/xtayzebye"
+                target="_blank"
+                class="btn secondary">
+
+                Написать мне
+
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ========================================
+     PORTFOLIO
+======================================== -->
+
+<section id="works">
+
+    <div class="reveal">
+
+        <div class="section-label">
+            01 / Portfolio
+        </div>
+
+
+        <h2 class="section-title">
+            Мои работы
+        </h2>
+
+    </div>
+
+
+    <div class="works">
+
+
+        <!-- VIDEO 1 -->
+
+        <div
+            class="work reveal"
+            data-video="video1.mp4">
+
+            <video
+                src="video1.mp4"
+                muted
+                loop
+                playsinline
+                preload="metadata">
+            </video>
+
+
+            <div class="play-indicator"></div>
+
+
+            <div class="work-info">
+
+                <h3>
+                    Video Project 01
+                </h3>
+
+                <p>
+                    Video Editing / Motion Design
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- VIDEO 2 -->
+
+        <div
+            class="work reveal"
+            data-video="video2.mp4">
+
+            <video
+                src="video2.mp4"
+                muted
+                loop
+                playsinline
+                preload="metadata">
+            </video>
+
+
+            <div class="play-indicator"></div>
+
+
+            <div class="work-info">
+
+                <h3>
+                    Video Project 02
+                </h3>
+
+                <p>
+                    Creative Editing
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- VIDEO 3 — 1080x1920 -->
+
+        <div
+            class="work work-vertical reveal"
+            data-video="video3.mp4">
+
+            <video
+                src="video3.mp4"
+                muted
+                loop
+                playsinline
+                preload="metadata">
+            </video>
+
+
+            <div class="play-indicator"></div>
+
+
+            <div class="work-info">
+
+                <h3>
+                    Video Project 03
+                </h3>
+
+                <p>
+                    Vertical / 1080×1920
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- VIDEO 4 -->
+
+        <div
+            class="work reveal"
+            data-video="video4.mp4">
+
+            <video
+                src="video4.mp4"
+                muted
+                loop
+                playsinline
+                preload="metadata">
+            </video>
+
+
+            <div class="play-indicator"></div>
+
+
+            <div class="work-info">
+
+                <h3>
+                    Video Project 04
+                </h3>
+
+                <p>
+                    Motion Design / Effects
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     SERVICES
+======================================== -->
+
+<section id="services">
+
+    <div class="reveal">
+
+        <div class="section-label">
+            02 / Services
+        </div>
+
+
+        <h2 class="section-title">
+            Что я делаю
+        </h2>
+
+    </div>
+
+
+    <div class="services">
+
+
+        <div class="service reveal">
+
+            <div class="service-number">
+                01
+            </div>
+
+            <h3>
+                Shorts / Reels
+            </h3>
+
+            <p>
+                Динамичный монтаж коротких
+                роликов для TikTok, Instagram
+                и YouTube.
+            </p>
+
+        </div>
+
+
+        <div class="service reveal">
+
+            <div class="service-number">
+                02
+            </div>
+
+            <h3>
+                Motion Design
+            </h3>
+
+            <p>
+                Анимация, графика, эффекты
+                и визуальные переходы
+                в After Effects.
+            </p>
+
+        </div>
+
+
+        <div class="service reveal">
+
+            <div class="service-number">
+                03
+            </div>
+
+            <h3>
+                YouTube
+            </h3>
+
+            <p>
+                Монтаж длинных видео,
+                субтитры, звуки, эффекты
+                и удержание внимания.
+            </p>
+
+        </div>
+
+
+        <div class="service reveal">
+
+            <div class="service-number">
+                04
+            </div>
+
+            <h3>
+                Реклама
+            </h3>
+
+            <p>
+                Рекламные ролики для брендов,
+                экспертов и бизнеса.
+            </p>
+
+        </div>
+
+
+        <div class="service reveal">
+
+            <div class="service-number">
+                05
+            </div>
+
+            <h3>
+                Sound Design
+            </h3>
+
+            <p>
+                Музыка, звуковые эффекты
+                и синхронизация звука
+                с видео.
+            </p>
+
+        </div>
+
+
+        <div class="service reveal">
+
+            <div class="service-number">
+                06
+            </div>
+
+            <h3>
+                Color
+            </h3>
+
+            <p>
+                Цветокоррекция и создание
+                подходящего визуального стиля.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     ABOUT
+======================================== -->
+
+<section id="about">
+
+    <div class="about">
+
+
+        <div class="reveal">
+
+            <div class="section-label">
+                03 / About
+            </div>
+
+
+            <h2>
+
+                Монтаж,<br>
+                который<br>
+                <span>цепляет.</span>
+
+            </h2>
+
+        </div>
+
+
+        <div class="reveal">
+
+            <p class="about-text">
+
+                Я — xtayze, видеомонтажёр,
+                который превращает обычный
+                исходник в динамичный и
+                визуально привлекательный контент.
+
+                <br><br>
+
+                Работаю с монтажом,
+                Motion Design,
+                визуальными эффектами,
+                звуком и цветокоррекцией.
+
+                <br><br>
+
+                Моя цель — не просто красиво
+                смонтировать видео, а сделать так,
+                чтобы его хотелось смотреть дальше.
+
+            </p>
+
+
+            <div class="stats">
+
+
+                <div class="stat">
+
+                    <strong>
+                        AE
+                    </strong>
+
+                    <span>
+                        After Effects
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <strong>
+                        PR
+                    </strong>
+
+                    <span>
+                        Premiere Pro
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <strong>
+                        100%
+                    </strong>
+
+                    <span>
+                        Внимание к деталям
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <strong>
+                        24/7
+                    </strong>
+
+                    <span>
+                        Фокус на результате
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     CONTACT
+======================================== -->
+
+<section
+    id="contact"
+    class="contact">
+
+
+    <div class="reveal">
+
+
+        <div class="section-label">
+            04 / Contact
+        </div>
+
+
+        <h2>
+
+            Давайте<br>
+            <span>работать.</span>
+
+        </h2>
+
+
+        <p>
+
+            Есть проект или идея?
+
+            Напишите мне —
+            обсудим задачу,
+            сроки и формат работы.
+
+        </p>
+
+
+        <div class="contact-links">
+
+
+            <a
+                href="https://t.me/xtayzebye"
+                target="_blank"
+                class="btn primary">
+
+                Telegram — @xtayzebye
+
+            </a>
+
+
+            <a
+                href="mailto:zerekxj@gmail.com"
+                class="btn secondary">
+
+                zerekxj@gmail.com
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     FOOTER
+======================================== -->
+
+<footer>
+
+    <div>
+
+        © 2026
+        <strong>xtayze</strong>
+
+    </div>
+
+
+    <div>
+
+        Video Editor / Motion Designer
+
+    </div>
+
+</footer>
+
+
+<!-- ========================================
+     FULLSCREEN VIDEO
+======================================== -->
+
+<div
+    class="video-modal"
+    id="videoModal">
+
+
+    <button
+        class="close-video"
+        id="closeVideo"
+        aria-label="Закрыть">
+
+        ×
+
+    </button>
+
+
+    <video
+        id="modalVideo"
+        controls
+        playsinline>
+
+    </video>
+
+
+</div>
+
+
+<!-- ========================================
+     JAVASCRIPT
+======================================== -->
+
+<script>
+
+
+/* ========================================
+   SCROLL ANIMATION
+======================================== */
+
+const revealElements =
+    document.querySelectorAll(".reveal");
+
+
+const observer =
+    new IntersectionObserver(
+
+        function(entries) {
+
+            entries.forEach(
+                function(entry) {
+
+                    if (
+                        entry.isIntersecting
+                    ) {
+
+                        entry.target
+                            .classList
+                            .add("active");
+
+                    }
+
+                }
+            );
+
+        },
+
+        {
+            threshold: 0.1
+        }
+
+    );
+
+
+revealElements.forEach(
+    function(element) {
+
+        observer.observe(element);
+
+    }
+);
+
+
+/* ========================================
+   VIDEOS
+======================================== */
+
+const works =
+    document.querySelectorAll(".work");
+
+
+const isMobile =
+    window.matchMedia(
+        "(hover: none)"
+    ).matches;
+
+
+/* ========================================
+   CHECK VIDEO FILES
+======================================== */
+
+works.forEach(
+    function(work) {
+
+        const video =
+            work.querySelector("video");
+
+
+        video.addEventListener(
+            "error",
+            function() {
+
+                work.classList
+                    .add("hidden");
+
+            }
+        );
+
+
+        video.addEventListener(
+            "loadeddata",
+            function() {
+
+                work.classList
+                    .remove("hidden");
+
+            }
+        );
+
+    }
+);
+
+
+/* ========================================
+   DESKTOP — HOVER PLAY
+======================================== */
+
+if (!isMobile) {
+
+    works.forEach(
+        function(work) {
+
+            const video =
+                work.querySelector("video");
+
+
+            work.addEventListener(
+                "mouseenter",
+                function() {
+
+                    video.currentTime = 0;
+
+
+                    video.play()
+                        .then(
+                            function() {
+
+                                work.classList
+                                    .add("playing");
+
+                            }
+                        )
+                        .catch(
+                            function() {}
+
+                        );
+
+                }
+            );
+
+
+            work.addEventListener(
+                "mouseleave",
+                function() {
+
+                    video.pause();
+
+                    video.currentTime = 0;
+
+                    work.classList
+                        .remove("playing");
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* ========================================
+   MOBILE — TAP PLAY
+======================================== */
+
+if (isMobile) {
+
+    works.forEach(
+        function(work) {
+
+            const video =
+                work.querySelector("video");
+
+
+            work.addEventListener(
+                "click",
+                function(event) {
+
+                    if (
+                        event.target
+                            .tagName
+                            .toLowerCase()
+                        === "video"
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    if (video.paused) {
+
+                        video.play();
+
+                        work.classList
+                            .add("playing");
+
+                    } else {
+
+                        video.pause();
+
+                        work.classList
+                            .remove("playing");
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* ========================================
+   FULLSCREEN
+======================================== */
+
+const modal =
+    document.getElementById(
+        "videoModal"
+    );
+
+
+const modalVideo =
+    document.getElementById(
+        "modalVideo"
+    );
+
+
+const closeButton =
+    document.getElementById(
+        "closeVideo"
+    );
+
+
+works.forEach(
+    function(work) {
+
+        work.addEventListener(
+            "dblclick",
+            function() {
+
+                const video =
+                    work.querySelector("video");
+
+
+                openFullscreen(
+                    video.currentSrc ||
+                    video.src
+                );
+
+            }
+        );
+
+    }
+);
+
+
+function openFullscreen(source) {
+
+    modalVideo.src = source;
+
+    modal.classList
+        .add("active");
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    modalVideo.play()
+        .catch(
+            function() {}
+        );
+
+}
+
+
+function closeFullscreen() {
+
+    modalVideo.pause();
+
+    modalVideo.removeAttribute(
+        "src"
+    );
+
+    modalVideo.load();
+
+    modal.classList
+        .remove("active");
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+closeButton.addEventListener(
+    "click",
+    function() {
+
+        closeFullscreen();
+
+    }
+);
+
+
+modal.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target === modal
+        ) {
+
+            closeFullscreen();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeFullscreen();
+
+        }
+
+    }
+);
+
+
+/* ========================================
+   MOUSE GLOW
+======================================== */
+
+const glow =
+    document.querySelector(".glow");
+
+
+document.addEventListener(
+    "mousemove",
+    function(event) {
+
+        glow.style.left =
+            event.clientX + "px";
+
+        glow.style.top =
+            event.clientY + "px";
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>
