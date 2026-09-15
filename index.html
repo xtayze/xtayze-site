@@ -7,12 +7,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>xtayze. — Video Editor</title>
+<title>xtayze — Video Editor</title>
 
-<meta
-    name="description"
-    content="xtayze. — Video Editor, Motion Design и монтаж видео."
->
 
 <style>
 
@@ -31,8 +27,8 @@ html {
 }
 
 body {
-    background: #070707;
-    color: #ffffff;
+    background: #080808;
+    color: #fff;
 
     font-family:
         Arial,
@@ -47,111 +43,68 @@ a {
     text-decoration: none;
 }
 
-button {
-    font-family: inherit;
-}
-
 
 /* =====================================================
-   VARIABLES
+   LOADER
 ===================================================== */
 
-:root {
-
-    --pink: #ff1688;
-
-    --pink-soft: #ff4ba5;
-
-    --background: #070707;
-
-    --card: #101010;
-
-    --border: #202020;
-
-    --text: #ffffff;
-
-    --muted: #777777;
-
-    --muted-light: #999999;
-
-}
-
-
-/* =====================================================
-   BACKGROUND
-===================================================== */
-
-body::before {
-
-    content: "";
-
-    position: fixed;
-
-    width: 650px;
-    height: 650px;
-
-    top: -350px;
-    right: -250px;
-
-    border-radius: 50%;
-
-    background: var(--pink);
-
-    filter: blur(220px);
-
-    opacity: 0.08;
-
-    pointer-events: none;
-
-    z-index: -2;
-}
-
-
-body::after {
-
-    content: "";
+.loader {
 
     position: fixed;
 
     inset: 0;
 
-    pointer-events: none;
+    background: #080808;
 
-    z-index: -1;
+    display: flex;
 
-    opacity: 0.025;
+    align-items: center;
+    justify-content: center;
 
-    background-image:
+    z-index: 9999;
 
-        linear-gradient(
-            rgba(255,255,255,0.5) 1px,
-            transparent 1px
-        ),
+    transition:
+        opacity .8s ease,
+        visibility .8s ease;
+}
 
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,0.5) 1px,
-            transparent 1px
-        );
+.loader.hide {
 
-    background-size: 80px 80px;
+    opacity: 0;
 
+    visibility: hidden;
+}
+
+.loader span {
+
+    font-size: 14px;
+
+    letter-spacing: 6px;
+
+    text-transform: uppercase;
+
+    opacity: .6;
 }
 
 
 /* =====================================================
-   CONTAINER
+   SCROLL PROGRESS
 ===================================================== */
 
-.container {
+.progress {
 
-    width: min(
-        1180px,
-        calc(100% - 50px)
-    );
+    position: fixed;
 
-    margin: 0 auto;
+    top: 0;
+    left: 0;
 
+    width: 0%;
+
+    height: 2px;
+
+    background: #fff;
+
+    z-index: 9998;
 }
 
 
@@ -168,38 +121,9 @@ header {
 
     width: 100%;
 
-    z-index: 1000;
+    height: 90px;
 
-    padding: 22px 0;
-
-    background:
-        rgba(7,7,7,0.72);
-
-    backdrop-filter:
-        blur(20px);
-
-    -webkit-backdrop-filter:
-        blur(20px);
-
-    border-bottom:
-        1px solid rgba(
-            255,
-            255,
-            255,
-            0.06
-        );
-
-}
-
-
-.nav {
-
-    width: min(
-        1180px,
-        calc(100% - 50px)
-    );
-
-    margin: 0 auto;
+    padding: 0 6vw;
 
     display: flex;
 
@@ -207,53 +131,60 @@ header {
 
     justify-content: space-between;
 
-}
+    z-index: 1000;
 
+    mix-blend-mode: difference;
+}
 
 .logo {
 
-    font-size: 23px;
+    font-size: 20px;
 
-    font-weight: 900;
+    font-weight: 700;
 
     letter-spacing: -1px;
-
 }
 
-
-.logo span {
-
-    color: var(--pink);
-
-}
-
-
-.nav-links {
+nav {
 
     display: flex;
 
-    align-items: center;
-
     gap: 35px;
-
 }
 
+nav a {
 
-.nav-links a {
-
-    color: #777;
+    position: relative;
 
     font-size: 12px;
 
-    transition: 0.3s;
+    letter-spacing: 1px;
 
+    opacity: .8;
 }
 
+nav a::after {
 
-.nav-links a:hover {
+    content: "";
 
-    color: #ffffff;
+    position: absolute;
 
+    left: 0;
+
+    bottom: -6px;
+
+    width: 0;
+
+    height: 1px;
+
+    background: #fff;
+
+    transition: width .4s ease;
+}
+
+nav a:hover::after {
+
+    width: 100%;
 }
 
 
@@ -265,321 +196,182 @@ header {
 
     min-height: 100vh;
 
+    padding:
+        160px
+        6vw
+        80px;
+
     display: flex;
 
-    align-items: center;
+    flex-direction: column;
 
-    padding:
-        150px 0
-        100px;
+    justify-content: center;
 
+    position: relative;
 }
-
-
-.hero-content {
-
-    max-width: 1000px;
-
-}
-
 
 .hero-label {
 
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    color: #777;
-
     font-size: 11px;
+
+    letter-spacing: 5px;
 
     text-transform: uppercase;
 
-    letter-spacing: 3px;
+    color: #777;
 
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 
+    opacity: 0;
+
+    transform: translateY(30px);
+
+    animation:
+        appear 1s .3s forwards;
 }
-
-
-.hero-label::before {
-
-    content: "";
-
-    width: 30px;
-
-    height: 1px;
-
-    background:
-        var(--pink);
-
-}
-
 
 .hero h1 {
 
     font-size:
         clamp(
-            80px,
+            75px,
             14vw,
-            175px
+            190px
         );
 
-    line-height: 0.82;
+    line-height: .78;
 
     letter-spacing: -10px;
 
-    font-weight: 900;
+    font-weight: 700;
 
+    max-width: 1200px;
+
+    opacity: 0;
+
+    transform: translateY(50px);
+
+    animation:
+        appear 1.2s .5s forwards;
 }
-
 
 .hero h1 span {
 
-    color: var(--pink);
+    display: block;
 
+    color: transparent;
+
+    -webkit-text-stroke:
+        1px #fff;
 }
-
-
-.hero-description {
-
-    max-width: 580px;
-
-    margin-top: 45px;
-
-    color: #858585;
-
-    font-size: 17px;
-
-    line-height: 1.7;
-
-}
-
-
-.hero-buttons {
-
-    display: flex;
-
-    gap: 12px;
-
-    margin-top: 35px;
-
-}
-
-
-.btn {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding:
-        15px 24px;
-
-    border-radius: 100px;
-
-    font-size: 12px;
-
-    font-weight: 700;
-
-    transition:
-        transform 0.3s,
-        background 0.3s,
-        border 0.3s;
-
-}
-
-
-.btn-primary {
-
-    background:
-        var(--pink);
-
-    color: white;
-
-}
-
-
-.btn-primary:hover {
-
-    transform:
-        translateY(-3px);
-
-    background:
-        var(--pink-soft);
-
-    box-shadow:
-        0 15px 40px
-        rgba(
-            255,
-            22,
-            136,
-            0.22
-        );
-
-}
-
-
-.btn-outline {
-
-    border:
-        1px solid #292929;
-
-    color: #aaa;
-
-}
-
-
-.btn-outline:hover {
-
-    border-color:
-        #555;
-
-    color: white;
-
-    transform:
-        translateY(-3px);
-
-}
-
-
-/* =====================================================
-   HERO INFO
-===================================================== */
 
 .hero-info {
 
-    margin-top: 100px;
+    margin-top: 80px;
 
-    padding-top: 22px;
+    max-width: 500px;
 
-    border-top:
-        1px solid #1d1d1d;
+    color: #888;
 
-    display: flex;
+    font-size: 15px;
 
-    justify-content: space-between;
+    line-height: 1.7;
 
-    align-items: flex-end;
+    opacity: 0;
 
+    transform: translateY(30px);
+
+    animation:
+        appear 1s .9s forwards;
 }
 
+.scroll {
 
-.hero-note {
+    position: absolute;
 
-    color: #555;
+    bottom: 50px;
 
-    font-size: 11px;
+    right: 6vw;
 
-    line-height: 1.6;
-
-}
-
-
-.stats {
-
-    display: flex;
-
-    gap: 50px;
-
-}
-
-
-.stat strong {
-
-    display: block;
-
-    font-size: 20px;
-
-}
-
-
-.stat span {
-
-    display: block;
-
-    margin-top: 5px;
-
-    color: #555;
-
-    font-size: 10px;
-
-}
-
-
-/* =====================================================
-   SECTION
-===================================================== */
-
-section {
-
-    padding:
-        130px 0;
-
-}
-
-
-.section-header {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: flex-end;
-
-    margin-bottom: 50px;
-
-}
-
-
-.section-label {
-
-    color:
-        var(--pink);
+    color: #666;
 
     font-size: 10px;
 
     letter-spacing: 3px;
 
     text-transform: uppercase;
-
-    margin-bottom: 12px;
-
 }
 
 
-.section-title {
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+section {
+
+    padding:
+        150px
+        6vw;
+}
+
+.section-heading {
+
+    margin-bottom: 90px;
+}
+
+.section-heading small {
+
+    color: #555;
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+}
+
+.section-heading h2 {
+
+    margin-top: 20px;
 
     font-size:
         clamp(
-            45px,
-            7vw,
-            85px
+            55px,
+            9vw,
+            120px
         );
-
-    line-height: 0.9;
 
     letter-spacing: -6px;
 
-    font-weight: 900;
+    line-height: .8;
+}
 
+.section-heading h2 span {
+
+    color: #444;
 }
 
 
-.section-description {
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
 
-    max-width: 320px;
+.reveal {
 
-    color: #606060;
+    opacity: 0;
 
-    font-size: 12px;
+    transform: translateY(70px);
 
-    line-height: 1.7;
+    transition:
+        opacity 1s cubic-bezier(.16,1,.3,1),
+        transform 1s cubic-bezier(.16,1,.3,1);
+}
 
+.reveal.show {
+
+    opacity: 1;
+
+    transform: translateY(0);
 }
 
 
@@ -589,223 +381,219 @@ section {
 
 .portfolio {
 
+    padding-top: 100px;
+}
+
+
+/* =====================================================
+   WORK GRID
+===================================================== */
+
+.works {
+
     display: grid;
 
     grid-template-columns:
-        minmax(0, 1.45fr)
-        minmax(260px, 0.55fr);
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
 
-    gap: 20px;
+    gap: 30px;
 
-    align-items: start;
-
-}
-
-
-.portfolio-left {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 20px;
-
-}
-
-
-.portfolio-right {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 20px;
-
+    width: 100%;
 }
 
 
 /* =====================================================
-   VIDEO CARD
+   WORK CARD
 ===================================================== */
 
-.video-card {
+.work {
 
     position: relative;
 
+    width: 100%;
+
     overflow: hidden;
 
-    background:
-        var(--card);
+    border-radius: 28px;
 
-    border:
-        1px solid var(--border);
-
-    border-radius:
-        22px;
+    background: #151515;
 
     cursor: pointer;
 
-    transition:
-        transform 0.45s ease,
-        border-color 0.45s ease,
-        box-shadow 0.45s ease;
-
-}
-
-
-.video-card:hover {
-
-    transform:
-        translateY(-6px);
-
-    border-color:
-        #333;
+    isolation: isolate;
 
     box-shadow:
-        0 30px 80px
-        rgba(
-            0,
-            0,
-            0,
-            0.45
-        );
-
-}
-
-
-.video-card.horizontal {
-
-    aspect-ratio:
-        16 / 10;
-
-}
-
-
-.video-card.vertical {
-
-    aspect-ratio:
-        9 / 14;
-
-}
-
-
-.video-card video {
-
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
+        0 20px 70px
+        rgba(0,0,0,.25);
 
     transition:
-        transform 0.7s
-        cubic-bezier(
-            .2,
-            .7,
-            .2,
-            1
-        );
+        transform .7s
+        cubic-bezier(.16,1,.3,1),
 
+        box-shadow .7s ease;
 }
 
-
-.video-card:hover video {
+.work:hover {
 
     transform:
-        scale(1.04);
+        translateY(-8px);
 
+    box-shadow:
+        0 30px 90px
+        rgba(0,0,0,.4);
 }
 
 
 /* =====================================================
-   VIDEO GRADIENT
+   VIDEO SIZES
 ===================================================== */
 
-.video-gradient {
+/* 01 */
+
+.work:nth-child(1) {
+
+    aspect-ratio:
+        16 / 10;
+}
+
+
+/* 02 */
+
+.work:nth-child(2) {
+
+    aspect-ratio:
+        16 / 10;
+}
+
+
+/* 03 */
+
+.work:nth-child(3) {
+
+    aspect-ratio:
+        9 / 12;
+}
+
+
+/* 04 */
+
+.work:nth-child(4) {
+
+    aspect-ratio:
+        9 / 12;
+}
+
+
+/* 05 */
+
+.work:nth-child(5) {
+
+    grid-column:
+        1 / 3;
+
+    width: 75%;
+
+    margin:
+        20px auto 0;
+
+    aspect-ratio:
+        16 / 9;
+}
+
+
+/* =====================================================
+   POSTER
+===================================================== */
+
+.poster {
 
     position: absolute;
 
     inset: 0;
 
-    background:
-        linear-gradient(
-            to bottom,
-            transparent 50%,
-            rgba(
-                0,
-                0,
-                0,
-                0.9
-            )
-        );
+    width: 100%;
+    height: 100%;
 
-    pointer-events: none;
+    object-fit: cover;
 
+    z-index: 2;
+
+    display: block;
+
+    transition:
+        transform 1.2s
+        cubic-bezier(.16,1,.3,1),
+
+        opacity .7s ease;
+}
+
+.work:hover .poster {
+
+    transform:
+        scale(1.05);
+}
+
+.work.loaded .poster {
+
+    opacity: 0;
 }
 
 
 /* =====================================================
-   VIDEO INFORMATION
+   VIDEO
 ===================================================== */
 
-.video-info {
+.work video {
 
     position: absolute;
 
-    left: 0;
-    right: 0;
+    inset: 0;
 
-    bottom: 0;
+    width: 100%;
+    height: 100%;
 
-    padding:
-        55px 25px 25px;
+    object-fit: cover;
 
-    transform:
-        translateY(8px);
+    z-index: 1;
 
     opacity: 0;
 
     transition:
-        opacity 0.35s,
-        transform 0.35s;
-
+        opacity .6s ease;
 }
 
-
-.video-card:hover
-.video-info {
+.work.loaded video {
 
     opacity: 1;
-
-    transform:
-        translateY(0);
-
 }
 
 
-.video-title {
+/* =====================================================
+   DARK OVERLAY
+===================================================== */
 
-    font-size: 17px;
+.work::after {
 
-    font-weight: 700;
+    content: "";
 
-}
+    position: absolute;
 
+    inset: 0;
 
-.video-type {
+    z-index: 3;
 
-    margin-top: 6px;
+    pointer-events: none;
 
-    color:
-        var(--pink);
-
-    font-size: 9px;
-
-    letter-spacing: 2px;
-
-    text-transform: uppercase;
-
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.02),
+            transparent 45%,
+            rgba(0,0,0,.72)
+        );
 }
 
 
@@ -813,76 +601,111 @@ section {
    PLAY BUTTON
 ===================================================== */
 
-.play-button {
+.play {
 
     position: absolute;
 
-    top: 20px;
-    right: 20px;
+    z-index: 6;
 
-    width: 45px;
-    height: 45px;
+    top: 50%;
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 72px;
+    height: 72px;
 
     border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.7);
 
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
-    background:
-        rgba(
-            0,
-            0,
-            0,
-            0.55
-        );
-
-    border:
-        1px solid
-        rgba(
-            255,
-            255,
-            255,
-            0.15
-        );
-
     backdrop-filter:
-        blur(10px);
-
-    font-size: 11px;
-
-    opacity: 0;
-
-    transform:
-        scale(0.8);
+        blur(5px);
 
     transition:
-        opacity 0.3s,
-        transform 0.3s;
+        transform .6s
+        cubic-bezier(.16,1,.3,1),
 
+        background .4s ease;
 }
 
+.play::after {
 
-.video-card:hover
-.play-button {
+    content: "";
 
-    opacity: 1;
+    margin-left: 5px;
+
+    border-left:
+        14px solid #fff;
+
+    border-top:
+        9px solid transparent;
+
+    border-bottom:
+        9px solid transparent;
+}
+
+.work:hover .play {
 
     transform:
-        scale(1);
+        translate(-50%, -50%)
+        scale(1.15);
 
+    background:
+        rgba(255,255,255,.12);
 }
 
 
 /* =====================================================
-   FIFTH VIDEO
+   WORK INFO
 ===================================================== */
 
-.video-five {
+.work-info {
 
-    margin-top: 20px;
+    position: absolute;
 
+    left: 28px;
+    right: 28px;
+
+    bottom: 25px;
+
+    z-index: 7;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+}
+
+.work-name {
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+.work-type {
+
+    color:
+        rgba(255,255,255,.55);
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
 }
 
 
@@ -892,89 +715,87 @@ section {
 
 .services {
 
+    background: #f1f1ef;
+
+    color: #090909;
+
+    border-radius:
+        50px 50px 0 0;
+}
+
+.services
+.section-heading
+h2 span {
+
+    color: #aaa;
+}
+
+.services-grid {
+
     display: grid;
 
     grid-template-columns:
-        repeat(
-            3,
-            1fr
-        );
+        repeat(3, 1fr);
 
-    border-top:
-        1px solid #202020;
-
+    gap: 20px;
 }
-
 
 .service {
 
-    min-height: 280px;
+    min-height: 330px;
 
-    padding:
-        30px 25px;
+    padding: 38px;
 
-    border-right:
-        1px solid #202020;
+    border-radius: 28px;
 
-    border-bottom:
-        1px solid #202020;
+    background: #e7e7e5;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
 
     transition:
-        background 0.3s;
+        transform .6s
+        cubic-bezier(.16,1,.3,1),
 
+        background .5s ease;
 }
-
-
-.service:last-child {
-
-    border-right: none;
-
-}
-
 
 .service:hover {
 
-    background:
-        #0d0d0d;
+    transform:
+        translateY(-10px);
 
+    background: #fff;
 }
-
 
 .service-number {
 
-    color:
-        var(--pink);
+    font-size: 11px;
 
-    font-size: 10px;
-
-    letter-spacing: 2px;
-
+    color: #888;
 }
-
 
 .service h3 {
 
-    margin-top: 65px;
+    font-size: 35px;
 
-    font-size: 25px;
+    letter-spacing: -2px;
 
-    letter-spacing: -1px;
-
+    margin-bottom: 15px;
 }
-
 
 .service p {
 
-    max-width: 280px;
+    max-width: 300px;
 
-    margin-top: 15px;
+    color: #777;
 
-    color: #666;
-
-    font-size: 13px;
+    font-size: 14px;
 
     line-height: 1.7;
-
 }
 
 
@@ -984,91 +805,32 @@ section {
 
 .about {
 
-    display: grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap: 100px;
-
-    align-items: center;
-
-}
-
-
-.about-title {
-
-    font-size:
-        clamp(
-            48px,
-            6vw,
-            80px
-        );
-
-    line-height: 0.9;
-
-    letter-spacing: -6px;
-
-    font-weight: 900;
-
-}
-
-
-.about-title span {
-
-    color:
-        var(--pink);
-
-}
-
-
-.about-text {
-
-    color:
-        #777;
-
-    font-size:
-        16px;
-
-    line-height:
-        1.9;
-
-}
-
-
-.about-list {
-
-    margin-top: 35px;
-
-}
-
-
-.about-row {
+    min-height: 85vh;
 
     display: flex;
 
-    justify-content: space-between;
-
-    padding:
-        14px 0;
-
-    border-bottom:
-        1px solid #202020;
-
-    color:
-        #aaa;
-
-    font-size:
-        12px;
-
+    align-items: center;
 }
 
+.about-text {
 
-.about-row span:last-child {
+    max-width: 1100px;
 
-    color:
-        #444;
+    font-size:
+        clamp(
+            40px,
+            6vw,
+            85px
+        );
 
+    line-height: 1;
+
+    letter-spacing: -4px;
+}
+
+.about-text span {
+
+    color: #444;
 }
 
 
@@ -1076,175 +838,69 @@ section {
    CONTACT
 ===================================================== */
 
-.contact-box {
+.contact {
 
-    position: relative;
+    min-height: 85vh;
 
-    overflow: hidden;
+    display: flex;
 
-    padding:
-        85px 55px;
+    flex-direction: column;
 
-    border:
-        1px solid #242424;
-
-    border-radius:
-        25px;
-
-    background:
-
-        radial-gradient(
-            circle at 80% 10%,
-            rgba(
-                255,
-                22,
-                136,
-                0.13
-            ),
-            transparent 35%
-        ),
-
-        #0c0c0c;
-
+    justify-content: center;
 }
 
-
-.contact-box::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 350px;
-    height: 350px;
-
-    right: -180px;
-    bottom: -180px;
-
-    border-radius:
-        50%;
-
-    background:
-        var(--pink);
-
-    filter:
-        blur(160px);
-
-    opacity:
-        0.08;
-
-    pointer-events:
-        none;
-
-}
-
-
-.contact-label {
-
-    position: relative;
-
-    z-index: 1;
-
-    color:
-        var(--pink);
-
-    font-size:
-        10px;
-
-    letter-spacing:
-        3px;
-
-    text-transform:
-        uppercase;
-
-}
-
-
-.contact-title {
-
-    position: relative;
-
-    z-index: 1;
-
-    max-width:
-        850px;
-
-    margin-top:
-        20px;
+.contact h2 {
 
     font-size:
         clamp(
-            50px,
-            8vw,
-            105px
+            70px,
+            13vw,
+            180px
         );
 
-    line-height:
-        0.88;
+    line-height: .75;
 
-    letter-spacing:
-        -7px;
+    letter-spacing: -9px;
 
-    font-weight:
-        900;
-
+    margin-bottom: 90px;
 }
 
+.contact-links {
 
-.contact-title span {
+    display: flex;
 
-    color:
-        var(--pink);
+    gap: 15px;
 
+    flex-wrap: wrap;
 }
 
+.contact-link {
 
-.contact-description {
+    padding:
+        18px 28px;
 
-    position:
-        relative;
+    border:
+        1px solid #333;
 
-    z-index:
-        1;
+    border-radius: 100px;
 
-    max-width:
-        500px;
+    font-size: 12px;
 
-    margin-top:
-        30px;
+    letter-spacing: 1px;
 
-    color:
-        #666;
-
-    font-size:
-        14px;
-
-    line-height:
-        1.7;
-
+    transition:
+        background .4s ease,
+        color .4s ease,
+        border .4s ease;
 }
 
+.contact-link:hover {
 
-.contact-buttons {
+    background: #fff;
 
-    position:
-        relative;
+    color: #000;
 
-    z-index:
-        1;
-
-    display:
-        flex;
-
-    gap:
-        12px;
-
-    flex-wrap:
-        wrap;
-
-    margin-top:
-        35px;
-
+    border-color: #fff;
 }
 
 
@@ -1254,30 +910,23 @@ section {
 
 footer {
 
-    padding:
-        30px 0
-        40px;
-
     border-top:
-        1px solid #1a1a1a;
+        1px solid #222;
 
-    color:
-        #444;
+    padding:
+        35px 6vw;
 
-    font-size:
-        10px;
+    display: flex;
 
-}
+    justify-content: space-between;
 
+    color: #555;
 
-.footer-inner {
+    font-size: 10px;
 
-    display:
-        flex;
+    letter-spacing: 2px;
 
-    justify-content:
-        space-between;
-
+    text-transform: uppercase;
 }
 
 
@@ -1287,174 +936,97 @@ footer {
 
 .modal {
 
-    position:
-        fixed;
+    position: fixed;
 
-    inset:
-        0;
-
-    z-index:
-        9999;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    padding:
-        30px;
+    inset: 0;
 
     background:
-        rgba(
-            0,
-            0,
-            0,
-            0.96
-        );
+        rgba(0,0,0,.95);
 
-    opacity:
-        0;
+    z-index: 5000;
 
-    visibility:
-        hidden;
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 25px;
+
+    opacity: 0;
+
+    visibility: hidden;
 
     transition:
-        opacity 0.3s;
-
+        opacity .5s ease,
+        visibility .5s ease;
 }
-
 
 .modal.active {
 
-    opacity:
-        1;
+    opacity: 1;
 
-    visibility:
-        visible;
-
+    visibility: visible;
 }
-
 
 .modal video {
 
-    max-width:
-        92vw;
+    max-width: 90vw;
 
-    max-height:
-        88vh;
+    max-height: 90vh;
 
-    border-radius:
-        15px;
-
-    box-shadow:
-        0 30px 100px
-        rgba(
-            0,
-            0,
-            0,
-            0.8
-        );
-
+    border-radius: 20px;
 }
 
+.close {
 
-.modal-close {
+    position: absolute;
 
-    position:
-        absolute;
+    top: 25px;
 
-    top:
-        25px;
+    right: 30px;
 
-    right:
-        30px;
+    width: 50px;
+    height: 50px;
 
-    width:
-        45px;
-
-    height:
-        45px;
-
-    border-radius:
-        50%;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.08
-        );
+    border-radius: 50%;
 
     border:
-        none;
+        1px solid #555;
 
-    color:
-        white;
+    background: transparent;
 
-    font-size:
-        25px;
+    color: #fff;
 
-    cursor:
-        pointer;
+    font-size: 25px;
+
+    cursor: pointer;
 
     transition:
-        0.3s;
-
+        background .3s ease;
 }
 
+.close:hover {
 
-.modal-close:hover {
+    background: #fff;
 
-    background:
-        var(--pink);
-
-    transform:
-        rotate(90deg);
-
+    color: #000;
 }
 
 
 /* =====================================================
-   REVEAL
+   HERO ANIMATION
 ===================================================== */
 
-.reveal {
+@keyframes appear {
 
-    opacity:
-        0;
+    to {
 
-    transform:
-        translateY(35px);
+        opacity: 1;
 
-    transition:
-        opacity 0.8s ease,
-        transform 0.8s ease;
-
-}
-
-
-.reveal.show {
-
-    opacity:
-        1;
-
-    transform:
-        translateY(0);
-
+        transform:
+            translateY(0);
+    }
 }
 
 
@@ -1462,50 +1034,37 @@ footer {
    MOBILE
 ===================================================== */
 
-@media (
-    max-width: 800px
-) {
+@media(max-width: 800px) {
 
 
-    .container {
+    /* HEADER */
 
-        width:
-            calc(
-                100% - 30px
-            );
+    header {
 
+        height: 70px;
+
+        padding:
+            0 20px;
+    }
+
+    nav {
+
+        gap: 14px;
+    }
+
+    nav a {
+
+        font-size: 9px;
     }
 
 
-    .nav {
-
-        width:
-            calc(
-                100% - 30px
-            );
-
-    }
-
-
-    .nav-links {
-
-        display:
-            none;
-
-    }
-
+    /* HERO */
 
     .hero {
 
-        min-height:
-            auto;
-
         padding:
-            160px 0
-            80px;
-
+            130px 20px 70px;
     }
-
 
     .hero h1 {
 
@@ -1513,257 +1072,161 @@ footer {
             23vw;
 
         letter-spacing:
-            -6px;
+            -5px;
+    }
 
+    .scroll {
+
+        display: none;
     }
 
 
-    .hero-description {
-
-        font-size:
-            15px;
-
-        margin-top:
-            30px;
-
-    }
-
-
-    .hero-buttons {
-
-        flex-direction:
-            column;
-
-    }
-
-
-    .btn {
-
-        width:
-            100%;
-
-    }
-
-
-    .hero-info {
-
-        margin-top:
-            70px;
-
-        display:
-            block;
-
-    }
-
-
-    .stats {
-
-        margin-top:
-            30px;
-
-        gap:
-            30px;
-
-        justify-content:
-            space-between;
-
-    }
-
+    /* SECTIONS */
 
     section {
 
         padding:
-            85px 0;
-
+            100px 20px;
     }
 
+    .section-heading {
 
-    .section-header {
-
-        display:
-            block;
-
+        margin-bottom:
+            55px;
     }
 
-
-    .section-description {
-
-        margin-top:
-            25px;
-
-    }
-
-
-    .portfolio {
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-
-    .portfolio-left,
-    .portfolio-right {
-
-        gap:
-            15px;
-
-    }
-
-
-    .video-card {
-
-        border-radius:
-            17px;
-
-    }
-
-
-    .video-card.horizontal {
-
-        aspect-ratio:
-            16 / 10;
-
-    }
-
-
-    .video-card.vertical {
-
-        aspect-ratio:
-            9 / 14;
-
-    }
-
-
-    .video-info {
-
-        opacity:
-            1;
-
-        transform:
-            translateY(0);
-
-    }
-
-
-    .play-button {
-
-        opacity:
-            1;
-
-        transform:
-            scale(1);
-
-    }
-
-
-    .services {
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-
-    .service {
-
-        min-height:
-            auto;
-
-        border-right:
-            none;
-
-    }
-
-
-    .service h3 {
-
-        margin-top:
-            35px;
-
-    }
-
-
-    .about {
-
-        grid-template-columns:
-            1fr;
-
-        gap:
-            50px;
-
-    }
-
-
-    .contact-box {
-
-        padding:
-            55px 25px;
-
-    }
-
-
-    .contact-title {
+    .section-heading h2 {
 
         letter-spacing:
-            -4px;
-
+            -3px;
     }
 
 
-    .footer-inner {
+    /* WORKS */
+
+    .works {
+
+        display: flex;
 
         flex-direction:
             column;
 
-        gap:
-            10px;
+        gap: 18px;
+    }
 
+
+    /* ALL MOBILE CARDS */
+
+    .work,
+    .work:nth-child(1),
+    .work:nth-child(2),
+    .work:nth-child(3),
+    .work:nth-child(4),
+    .work:nth-child(5) {
+
+        width: 100%;
+
+        margin: 0;
+
+        grid-column: auto;
+
+        border-radius: 22px;
+    }
+
+
+    /* HORIZONTAL */
+
+    .work:nth-child(1),
+    .work:nth-child(2),
+    .work:nth-child(5) {
+
+        aspect-ratio:
+            16 / 10;
+    }
+
+
+    /* VERTICAL */
+
+    .work:nth-child(3),
+    .work:nth-child(4) {
+
+        aspect-ratio:
+            9 / 12;
+    }
+
+
+    /* SERVICES */
+
+    .services {
+
+        border-radius:
+            35px 35px 0 0;
+    }
+
+    .services-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .service {
+
+        min-height:
+            250px;
+    }
+
+
+    /* ABOUT */
+
+    .about-text {
+
+        font-size:
+            42px;
+
+        letter-spacing:
+            -2px;
+    }
+
+
+    /* CONTACT */
+
+    .contact h2 {
+
+        letter-spacing:
+            -5px;
+    }
+
+
+    /* FOOTER */
+
+    footer {
+
+        padding:
+            30px 20px;
+
+        gap: 15px;
+
+        flex-direction:
+            column;
     }
 
 }
 
 
 /* =====================================================
-   SMALL MOBILE
+   REDUCED MOTION
 ===================================================== */
 
-@media (
-    max-width: 450px
-) {
+@media(prefers-reduced-motion: reduce) {
 
+    * {
 
-    .hero h1 {
+        animation: none !important;
 
-        letter-spacing:
-            -4px;
+        transition: none !important;
 
+        scroll-behavior: auto !important;
     }
-
-
-    .stats {
-
-        gap:
-            20px;
-
-    }
-
-
-    .stat strong {
-
-        font-size:
-            17px;
-
-    }
-
-
-    .contact-title {
-
-        font-size:
-            48px;
-
-    }
-
 }
 
 </style>
@@ -1775,45 +1238,60 @@ footer {
 
 
 <!-- =====================================================
+     LOADER
+===================================================== -->
+
+<div class="loader" id="loader">
+
+    <span>
+        xtayze
+    </span>
+
+</div>
+
+
+<!-- =====================================================
+     PROGRESS
+===================================================== -->
+
+<div
+    class="progress"
+    id="progress"
+></div>
+
+
+<!-- =====================================================
      HEADER
 ===================================================== -->
 
 <header>
 
-    <nav class="nav">
+    <div class="logo">
+        xtayze
+    </div>
 
-        <a
-            href="#"
-            class="logo"
-        >
-            xtayze<span>.</span>
+
+    <nav>
+
+        <a href="#works">
+            Работы
         </a>
 
+        <a href="#services">
+            Услуги
+        </a>
 
-        <div class="nav-links">
+        <a href="#about">
+            Обо мне
+        </a>
 
-            <a href="#works">
-                Работы
-            </a>
-
-            <a href="#services">
-                Услуги
-            </a>
-
-            <a href="#about">
-                Обо мне
-            </a>
-
-            <a href="#contact">
-                Контакты
-            </a>
-
-        </div>
+        <a href="#contact">
+            Контакты
+        </a>
 
     </nav>
 
 </header>
-
 
 
 <!-- =====================================================
@@ -1822,387 +1300,324 @@ footer {
 
 <section class="hero">
 
-    <div class="container">
 
+    <div class="hero-label">
 
-        <div class="hero-content reveal">
-
-
-            <div class="hero-label">
-
-                Video Editor
-
-            </div>
-
-
-            <h1>
-
-                xtayze<span>.</span>
-
-            </h1>
-
-
-            <p class="hero-description">
-
-                Создаю динамичный видеомонтаж,
-                motion design и визуальные эффекты,
-                которые удерживают внимание зрителя.
-
-            </p>
-
-
-            <div class="hero-buttons">
-
-
-                <a
-                    href="#works"
-                    class="btn btn-primary"
-                >
-
-                    Смотреть работы →
-
-                </a>
-
-
-                <a
-                    href="#contact"
-                    class="btn btn-outline"
-                >
-
-                    Связаться
-
-                </a>
-
-
-            </div>
-
-
-        </div>
-
-
-
-        <div class="hero-info reveal">
-
-
-            <div class="hero-note">
-
-                Available for projects<br>
-                Video Editing / Motion Design
-
-            </div>
-
-
-            <div class="stats">
-
-
-                <div class="stat">
-
-                    <strong>
-                        AE
-                    </strong>
-
-                    <span>
-                        After Effects
-                    </span>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <strong>
-                        PR
-                    </strong>
-
-                    <span>
-                        Premiere Pro
-                    </span>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <strong>
-                        24/7
-                    </strong>
-
-                    <span>
-                        На связи
-                    </span>
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
+        Video Editor / 2026
 
     </div>
 
-</section>
 
+    <h1>
+
+        VISUAL
+
+        <span>
+            STORIES.
+        </span>
+
+    </h1>
+
+
+    <div class="hero-info">
+
+        Создаю динамичный монтаж,
+        который превращает обычный
+        материал в визуальную историю.
+
+    </div>
+
+
+    <div class="scroll">
+
+        Scroll ↓
+
+    </div>
+
+
+</section>
 
 
 <!-- =====================================================
      PORTFOLIO
 ===================================================== -->
 
-<section id="works">
+<section
+    class="portfolio"
+    id="works"
+>
 
-    <div class="container">
 
+    <div class="section-heading reveal">
 
-        <div class="section-header reveal">
 
+        <small>
 
-            <div>
+            01 — Portfolio
 
-                <div class="section-label">
+        </small>
 
-                    Selected Work
 
-                </div>
+        <h2>
 
+            Selected
 
-                <h2 class="section-title">
+            <span>
+                Works.
+            </span>
 
-                    РАБОТЫ
+        </h2>
 
-                </h2>
 
-            </div>
+    </div>
 
 
-            <p class="section-description">
+    <div class="works">
 
-                Подборка моих работ
-                по видеомонтажу,
-                Reels, Shorts и Motion Design.
 
-            </p>
-
-
-        </div>
-
-
-
-        <div class="portfolio reveal">
-
-
-            <!-- LEFT -->
-
-            <div class="portfolio-left">
-
-
-                <!-- VIDEO 1 -->
-
-                <div
-                    class="video-card horizontal"
-                    ondblclick="openVideo(this)"
-                >
-
-                    <video
-                        src="https://res.cloudinary.com/cjq0fysu/video/upload/video1.mp4"
-                        muted
-                        loop
-                        playsinline
-                        preload="metadata"
-                    ></video>
-
-
-                    <div class="video-gradient"></div>
-
-
-                    <div class="play-button">
-                        ▶
-                    </div>
-
-
-                    <div class="video-info">
-
-                        <div class="video-title">
-                            Project 01
-                        </div>
-
-                        <div class="video-type">
-                            Video Editing
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- VIDEO 2 -->
-
-                <div
-                    class="video-card horizontal"
-                    ondblclick="openVideo(this)"
-                >
-
-                    <video
-                        src="https://res.cloudinary.com/cjq0fysu/video/upload/video2.mp4"
-                        muted
-                        loop
-                        playsinline
-                        preload="metadata"
-                    ></video>
-
-
-                    <div class="video-gradient"></div>
-
-
-                    <div class="play-button">
-                        ▶
-                    </div>
-
-
-                    <div class="video-info">
-
-                        <div class="video-title">
-                            Project 02
-                        </div>
-
-                        <div class="video-type">
-                            Video Editing
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-
-            <!-- RIGHT -->
-
-            <div class="portfolio-right">
-
-
-                <!-- VIDEO 3 -->
-
-                <div
-                    class="video-card vertical"
-                    ondblclick="openVideo(this)"
-                >
-
-                    <video
-                        src="https://res.cloudinary.com/cjq0fysu/video/upload/video3.mp4"
-                        muted
-                        loop
-                        playsinline
-                        preload="metadata"
-                    ></video>
-
-
-                    <div class="video-gradient"></div>
-
-
-                    <div class="play-button">
-                        ▶
-                    </div>
-
-
-                    <div class="video-info">
-
-                        <div class="video-title">
-                            Project 03
-                        </div>
-
-                        <div class="video-type">
-                            Reels / Shorts
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- VIDEO 4 -->
-
-                <div
-                    class="video-card vertical"
-                    ondblclick="openVideo(this)"
-                >
-
-                    <video
-                        src="https://res.cloudinary.com/cjq0fysu/video/upload/video4.mp4"
-                        muted
-                        loop
-                        playsinline
-                        preload="metadata"
-                    ></video>
-
-
-                    <div class="video-gradient"></div>
-
-
-                    <div class="play-button">
-                        ▶
-                    </div>
-
-
-                    <div class="video-info">
-
-                        <div class="video-title">
-                            Project 04
-                        </div>
-
-                        <div class="video-type">
-                            Reels / Shorts
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-
-        <!-- VIDEO 5 -->
+        <!-- =================================================
+             VIDEO 01
+        ================================================== -->
 
         <div
-            class="video-card horizontal video-five reveal"
-            ondblclick="openVideo(this)"
+            class="work reveal"
+
+            data-video="https://res.cloudinary.com/cjq0fysu/video/upload/q_auto/video1.mp4"
         >
 
+            <img
+                class="poster"
+
+                src="https://res.cloudinary.com/cjq0fysu/video/upload/so_0,q_auto,w_1400/video1.jpg"
+
+                alt="Project 01"
+            >
+
+
             <video
-                src="https://res.cloudinary.com/cjq0fysu/video/upload/video5.mp4"
                 muted
                 loop
                 playsinline
-                preload="metadata"
+                preload="none"
             ></video>
 
 
-            <div class="video-gradient"></div>
+            <div class="play"></div>
 
 
-            <div class="play-button">
-                ▶
-            </div>
+            <div class="work-info">
 
+                <div class="work-name">
 
-            <div class="video-info">
+                    Project 01
 
-                <div class="video-title">
-                    Project 05
                 </div>
 
-                <div class="video-type">
-                    Video Editing
+
+                <div class="work-type">
+
+                    Commercial
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             VIDEO 02
+        ================================================== -->
+
+        <div
+            class="work reveal"
+
+            data-video="https://res.cloudinary.com/cjq0fysu/video/upload/q_auto/video2.mp4"
+        >
+
+            <img
+                class="poster"
+
+                src="https://res.cloudinary.com/cjq0fysu/video/upload/so_0,q_auto,w_1400/video2.jpg"
+
+                alt="Project 02"
+            >
+
+
+            <video
+                muted
+                loop
+                playsinline
+                preload="none"
+            ></video>
+
+
+            <div class="play"></div>
+
+
+            <div class="work-info">
+
+                <div class="work-name">
+
+                    Project 02
+
+                </div>
+
+
+                <div class="work-type">
+
+                    Social Media
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             VIDEO 03
+        ================================================== -->
+
+        <div
+            class="work reveal"
+
+            data-video="https://res.cloudinary.com/cjq0fysu/video/upload/q_auto/video3.mp4"
+        >
+
+            <img
+                class="poster"
+
+                src="https://res.cloudinary.com/cjq0fysu/video/upload/so_0,q_auto,w_900/video3.jpg"
+
+                alt="Project 03"
+            >
+
+
+            <video
+                muted
+                loop
+                playsinline
+                preload="none"
+            ></video>
+
+
+            <div class="play"></div>
+
+
+            <div class="work-info">
+
+                <div class="work-name">
+
+                    Project 03
+
+                </div>
+
+
+                <div class="work-type">
+
+                    Reels
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             VIDEO 04
+        ================================================== -->
+
+        <div
+            class="work reveal"
+
+            data-video="https://res.cloudinary.com/cjq0fysu/video/upload/q_auto/video4.mp4"
+        >
+
+            <img
+                class="poster"
+
+                src="https://res.cloudinary.com/cjq0fysu/video/upload/so_0,q_auto,w_900/video4.jpg"
+
+                alt="Project 04"
+            >
+
+
+            <video
+                muted
+                loop
+                playsinline
+                preload="none"
+            ></video>
+
+
+            <div class="play"></div>
+
+
+            <div class="work-info">
+
+                <div class="work-name">
+
+                    Project 04
+
+                </div>
+
+
+                <div class="work-type">
+
+                    Reels
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             VIDEO 05
+        ================================================== -->
+
+        <div
+            class="work reveal"
+
+            data-video="https://res.cloudinary.com/cjq0fysu/video/upload/q_auto/video5.mp4"
+        >
+
+            <img
+                class="poster"
+
+                src="https://res.cloudinary.com/cjq0fysu/video/upload/so_0,q_auto,w_1400/video5.jpg"
+
+                alt="Project 05"
+            >
+
+
+            <video
+                muted
+                loop
+                playsinline
+                preload="none"
+            ></video>
+
+
+            <div class="play"></div>
+
+
+            <div class="work-info">
+
+                <div class="work-name">
+
+                    Project 05
+
+                </div>
+
+
+                <div class="work-type">
+
+                    Business
+
                 </div>
 
             </div>
@@ -2213,112 +1628,122 @@ footer {
     </div>
 
 </section>
-
 
 
 <!-- =====================================================
      SERVICES
 ===================================================== -->
 
-<section id="services">
+<section
+    class="services"
+    id="services"
+>
 
-    <div class="container">
+
+    <div class="section-heading reveal">
 
 
-        <div class="section-header reveal">
+        <small>
+
+            02 — Services
+
+        </small>
+
+
+        <h2>
+
+            What I
+
+            <span>
+                Do.
+            </span>
+
+        </h2>
+
+
+    </div>
+
+
+    <div class="services-grid">
+
+
+        <div class="service reveal">
+
+            <div class="service-number">
+                01
+            </div>
 
 
             <div>
 
-                <div class="section-label">
-                    Services
-                </div>
+                <h3>
+                    Reels
+                </h3>
 
 
-                <h2 class="section-title">
-                    УСЛУГИ
-                </h2>
+                <p>
+
+                    Динамичный монтаж
+                    вертикальных видео
+                    для социальных сетей.
+
+                </p>
 
             </div>
-
 
         </div>
 
 
+        <div class="service reveal">
 
-        <div class="services reveal">
+            <div class="service-number">
+                02
+            </div>
 
 
-            <div class="service">
-
-                <div class="service-number">
-                    01
-                </div>
-
+            <div>
 
                 <h3>
-                    Reels / Shorts
+                    Ads
                 </h3>
 
 
                 <p>
 
-                    Динамичный монтаж коротких
-                    видео для TikTok, Instagram
-                    Reels и YouTube Shorts.
+                    Рекламные ролики
+                    с сильным визуалом
+                    и удержанием внимания.
 
                 </p>
 
             </div>
 
+        </div>
 
 
-            <div class="service">
+        <div class="service reveal">
 
-                <div class="service-number">
-                    02
-                </div>
+            <div class="service-number">
+                03
+            </div>
 
+
+            <div>
 
                 <h3>
-                    Motion Design
+                    YouTube
                 </h3>
 
 
                 <p>
 
-                    Анимация текста, графики,
-                    transitions, effects
-                    и визуальных элементов.
+                    Монтаж YouTube,
+                    Shorts и экспертного
+                    контента.
 
                 </p>
 
             </div>
-
-
-
-            <div class="service">
-
-                <div class="service-number">
-                    03
-                </div>
-
-
-                <h3>
-                    Video Editing
-                </h3>
-
-
-                <p>
-
-                    Полный монтаж видео:
-                    музыка, цвет, эффекты,
-                    динамика и финальная обработка.
-
-                </p>
-
-            </div>
-
 
         </div>
 
@@ -2326,199 +1751,86 @@ footer {
     </div>
 
 </section>
-
 
 
 <!-- =====================================================
      ABOUT
 ===================================================== -->
 
-<section id="about">
-
-    <div class="container">
-
-
-        <div class="about reveal">
+<section
+    class="about"
+    id="about"
+>
 
 
-            <div>
+    <div class="about-text reveal">
 
-
-                <div class="section-label">
-                    About
-                </div>
-
-
-                <h2 class="about-title">
-
-                    МОНТАЖ
-                    <br>
-
-                    <span>
-                        ДОЛЖЕН
-                    </span>
-
-                    <br>
-
-                    ЦЕПЛЯТЬ.
-
-                </h2>
-
-
-            </div>
-
-
-
-            <div>
-
-
-                <p class="about-text">
-
-                    Я создаю современный видеомонтаж
-                    с акцентом на динамику, ритм
-                    и визуальную подачу.
-
-                    <br><br>
-
-                    Работаю с короткими роликами,
-                    рекламным контентом,
-                    экспертными видео,
-                    Reels, Shorts и Motion Design.
-
-                </p>
-
-
-
-                <div class="about-list">
-
-
-                    <div class="about-row">
-
-                        <span>
-                            After Effects
-                        </span>
-
-                        <span>
-                            Motion
-                        </span>
-
-                    </div>
-
-
-                    <div class="about-row">
-
-                        <span>
-                            Premiere Pro
-                        </span>
-
-                        <span>
-                            Editing
-                        </span>
-
-                    </div>
-
-
-                    <div class="about-row">
-
-                        <span>
-                            Short Form
-                        </span>
-
-                        <span>
-                            Reels
-                        </span>
-
-                    </div>
-
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
+        Я создаю монтаж,
+        который заставляет
+        <span>
+            смотреть до конца.
+        </span>
 
     </div>
 
-</section>
 
+</section>
 
 
 <!-- =====================================================
      CONTACT
 ===================================================== -->
 
-<section id="contact">
-
-    <div class="container">
-
-
-        <div class="contact-box reveal">
+<section
+    class="contact"
+    id="contact"
+>
 
 
-            <div class="contact-label">
+    <div class="reveal">
 
-                Let's work together
+        <h2>
 
-            </div>
+            LET'S
+            <br>
+            WORK.
 
+        </h2>
 
-            <h2 class="contact-title">
-
-                ЕСТЬ
-                <span>
-                    ПРОЕКТ?
-                </span>
-
-            </h2>
+    </div>
 
 
-            <p class="contact-description">
-
-                Расскажи мне о своей идее,
-                отправь задачу или просто
-                напиши по поводу сотрудничества.
-
-            </p>
+    <div class="contact-links reveal">
 
 
-            <div class="contact-buttons">
+        <a
+            href="https://t.me/xtayzebye"
+
+            target="_blank"
+
+            class="contact-link"
+        >
+
+            Telegram
+
+        </a>
 
 
-                <a
-                    href="https://t.me/xtayzebye"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn btn-primary"
-                >
+        <a
+            href="mailto:zerekxj@gmail.com"
 
-                    Telegram →
+            class="contact-link"
+        >
 
-                </a>
+            Email
 
-
-                <a
-                    href="mailto:zerekxj@gmail.com"
-                    class="btn btn-outline"
-                >
-
-                    zerekxj@gmail.com
-
-                </a>
-
-
-            </div>
-
-
-        </div>
+        </a>
 
 
     </div>
 
-</section>
 
+</section>
 
 
 <!-- =====================================================
@@ -2527,44 +1839,35 @@ footer {
 
 <footer>
 
-    <div class="container">
+    <span>
+
+        © 2026 xtayze
+
+    </span>
 
 
-        <div class="footer-inner">
+    <span>
 
+        Video Editor
 
-            <span>
-                © 2026 xtayze.
-            </span>
-
-
-            <span>
-                Video Editor / Motion Design
-            </span>
-
-
-        </div>
-
-
-    </div>
+    </span>
 
 </footer>
 
 
-
 <!-- =====================================================
-     VIDEO MODAL
+     MODAL
 ===================================================== -->
 
 <div
     class="modal"
-    id="videoModal"
+    id="modal"
 >
 
 
     <button
-        class="modal-close"
-        onclick="closeVideo()"
+        class="close"
+        id="close"
     >
 
         ×
@@ -2574,7 +1877,9 @@ footer {
 
     <video
         id="modalVideo"
+
         controls
+
         playsinline
     ></video>
 
@@ -2582,197 +1887,86 @@ footer {
 </div>
 
 
-
 <script>
 
-/* =====================================================
-   VIDEO HOVER
-===================================================== */
-
-const videoCards =
-    document.querySelectorAll(
-        ".video-card"
-    );
-
-
-videoCards.forEach(card => {
-
-    const video =
-        card.querySelector("video");
-
-
-    card.addEventListener(
-        "mouseenter",
-        () => {
-
-            video
-                .play()
-                .catch(() => {});
-
-        }
-    );
-
-
-    card.addEventListener(
-        "mouseleave",
-        () => {
-
-            video.pause();
-
-            video.currentTime = 0;
-
-        }
-    );
-
-
-    /* Mobile */
-
-    card.addEventListener(
-        "click",
-        () => {
-
-            if (
-                window.innerWidth <= 800
-            ) {
-
-                if (
-                    video.paused
-                ) {
-
-                    video
-                        .play()
-                        .catch(() => {});
-
-                } else {
-
-                    video.pause();
-
-                }
-
-            }
-
-        }
-    );
-
-});
-
 
 /* =====================================================
-   OPEN VIDEO
+   LOADER
 ===================================================== */
 
-function openVideo(card) {
+window.addEventListener(
+    "load",
+    () => {
 
-    const video =
-        card.querySelector("video");
+        setTimeout(
+            () => {
 
+                document
+                    .getElementById("loader")
+                    .classList
+                    .add("hide");
 
-    const modal =
-        document.getElementById(
-            "videoModal"
+            },
+            500
         );
-
-
-    const modalVideo =
-        document.getElementById(
-            "modalVideo"
-        );
-
-
-    modalVideo.src =
-        video.src;
-
-
-    modal.classList.add(
-        "active"
-    );
-
-
-    modalVideo
-        .play()
-        .catch(() => {});
-
-}
-
-
-/* =====================================================
-   CLOSE VIDEO
-===================================================== */
-
-function closeVideo() {
-
-    const modal =
-        document.getElementById(
-            "videoModal"
-        );
-
-
-    const modalVideo =
-        document.getElementById(
-            "modalVideo"
-        );
-
-
-    modalVideo.pause();
-
-    modalVideo.src = "";
-
-    modal.classList.remove(
-        "active"
-    );
-
-}
-
-
-/* =====================================================
-   ESC
-===================================================== */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            closeVideo();
-
-        }
 
     }
 );
 
 
 /* =====================================================
-   CLICK OUTSIDE
+   SCROLL PROGRESS
 ===================================================== */
 
-document
-    .getElementById("videoModal")
-    .addEventListener(
-        "click",
-        event => {
+window.addEventListener(
+    "scroll",
+    () => {
 
-            if (
-                event.target.id ===
-                "videoModal"
-            ) {
+        const scrollTop =
+            window.scrollY;
 
-                closeVideo();
 
-            }
+        const height =
+            document.documentElement
+                .scrollHeight
+            -
+            window.innerHeight;
 
-        }
-    );
+
+        const percent =
+            height > 0
+
+            ? (
+                scrollTop /
+                height
+            ) * 100
+
+            : 0;
+
+
+        document
+            .getElementById("progress")
+            .style
+            .width =
+            percent + "%";
+
+    }
+);
 
 
 /* =====================================================
-   SCROLL ANIMATION
+   REVEAL ANIMATION
 ===================================================== */
+
+const reveals =
+    document.querySelectorAll(
+        ".reveal"
+    );
+
 
 const observer =
     new IntersectionObserver(
+
         entries => {
 
             entries.forEach(
@@ -2786,6 +1980,7 @@ const observer =
                             .classList
                             .add("show");
 
+
                         observer
                             .unobserve(
                                 entry.target
@@ -2797,21 +1992,356 @@ const observer =
             );
 
         },
+
         {
-            threshold: 0.12
+            threshold: .12
         }
+
     );
 
 
-document
-    .querySelectorAll(".reveal")
-    .forEach(element => {
+reveals.forEach(
+    element => {
 
         observer.observe(
             element
         );
 
-    });
+    }
+);
+
+
+/* =====================================================
+   VIDEO SYSTEM
+===================================================== */
+
+const works =
+    document.querySelectorAll(
+        ".work"
+    );
+
+
+function loadVideo(work) {
+
+    const video =
+        work.querySelector(
+            "video"
+        );
+
+
+    if (
+        video.src
+    ) {
+
+        return;
+
+    }
+
+
+    video.src =
+        work.dataset.video;
+
+
+    video.load();
+
+
+    video.addEventListener(
+        "loadeddata",
+
+        () => {
+
+            work
+                .classList
+                .add("loaded");
+
+        },
+
+        {
+            once: true
+        }
+
+    );
+
+}
+
+
+/* =====================================================
+   DESKTOP HOVER
+===================================================== */
+
+works.forEach(
+    work => {
+
+
+        work.addEventListener(
+            "mouseenter",
+
+            () => {
+
+                loadVideo(work);
+
+
+                const video =
+                    work.querySelector(
+                        "video"
+                    );
+
+
+                video
+                    .play()
+                    .catch(
+                        () => {}
+                    );
+
+            }
+        );
+
+
+        work.addEventListener(
+            "mouseleave",
+
+            () => {
+
+                if (
+                    window.innerWidth > 800
+                ) {
+
+                    const video =
+                        work.querySelector(
+                            "video"
+                        );
+
+
+                    video.pause();
+
+                }
+
+            }
+        );
+
+
+        /* =============================================
+           MOBILE CLICK
+        ============================================= */
+
+        work.addEventListener(
+            "click",
+
+            () => {
+
+                if (
+                    window.innerWidth <= 800
+                ) {
+
+                    loadVideo(work);
+
+
+                    const video =
+                        work.querySelector(
+                            "video"
+                        );
+
+
+                    if (
+                        video.paused
+                    ) {
+
+                        video
+                            .play()
+                            .catch(
+                                () => {}
+                            );
+
+                    }
+
+                    else {
+
+                        video.pause();
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        /* =============================================
+           DOUBLE CLICK
+        ============================================= */
+
+        work.addEventListener(
+            "dblclick",
+
+            () => {
+
+                const modal =
+                    document
+                        .getElementById(
+                            "modal"
+                        );
+
+
+                const modalVideo =
+                    document
+                        .getElementById(
+                            "modalVideo"
+                        );
+
+
+                modalVideo.src =
+                    work.dataset.video;
+
+
+                modal
+                    .classList
+                    .add("active");
+
+
+                modalVideo
+                    .play()
+                    .catch(
+                        () => {}
+                    );
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+const modal =
+    document.getElementById(
+        "modal"
+    );
+
+
+const close =
+    document.getElementById(
+        "close"
+    );
+
+
+const modalVideo =
+    document.getElementById(
+        "modalVideo"
+    );
+
+
+function closeModal() {
+
+    modal
+        .classList
+        .remove("active");
+
+
+    modalVideo.pause();
+
+
+    modalVideo
+        .removeAttribute("src");
+
+
+    modalVideo.load();
+
+}
+
+
+close.addEventListener(
+    "click",
+    closeModal
+);
+
+
+modal.addEventListener(
+    "click",
+
+    event => {
+
+        if (
+            event.target === modal
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+
+    event => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   MOBILE PRELOAD
+===================================================== */
+
+const mobileObserver =
+    new IntersectionObserver(
+
+        entries => {
+
+            entries.forEach(
+                entry => {
+
+                    if (
+
+                        entry.isIntersecting
+
+                        &&
+
+                        window.innerWidth <= 800
+
+                    ) {
+
+                        loadVideo(
+                            entry.target
+                        );
+
+                    }
+
+                }
+            );
+
+        },
+
+        {
+            threshold: .25
+        }
+
+    );
+
+
+works.forEach(
+    work => {
+
+        mobileObserver.observe(
+            work
+        );
+
+    }
+);
+
 
 </script>
 
