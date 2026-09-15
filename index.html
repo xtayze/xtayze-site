@@ -11,17 +11,13 @@
       maximum-scale=1.0,
       user-scalable=no">
 
-<meta name="description"
-      content="xtayze — Video Editor">
-
 <title>xtayze — Video Editor</title>
-
 
 <style>
 
-/* ========================================
+/* ================================
    RESET
-======================================== */
+================================ */
 
 * {
     margin: 0;
@@ -35,51 +31,43 @@ html {
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-
     background: #080808;
-
-    color: #ffffff;
-
+    color: #fff;
     overflow-x: hidden;
 }
 
 ::selection {
     background: #ff0080;
-    color: #ffffff;
+    color: #fff;
 }
 
 
-/* ========================================
+/* ================================
    BACKGROUND
-======================================== */
+================================ */
 
 .background {
     position: fixed;
-
     inset: 0;
-
     z-index: -10;
-
-    overflow: hidden;
-
     pointer-events: none;
+    overflow: hidden;
 }
 
 .grid {
     position: absolute;
-
     inset: 0;
 
-    opacity: 0.035;
+    opacity: .035;
 
     background-image:
         linear-gradient(
-            rgba(255,255,255,0.5) 1px,
+            rgba(255,255,255,.5) 1px,
             transparent 1px
         ),
         linear-gradient(
             90deg,
-            rgba(255,255,255,0.5) 1px,
+            rgba(255,255,255,.5) 1px,
             transparent 1px
         );
 
@@ -94,19 +82,17 @@ body {
 
     border-radius: 50%;
 
-    background:
-        rgba(255,0,128,0.09);
+    background: rgba(255,0,128,.09);
 
     filter: blur(120px);
 
-    transform:
-        translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 
-/* ========================================
+/* ================================
    NAVIGATION
-======================================== */
+================================ */
 
 nav {
     position: fixed;
@@ -117,40 +103,33 @@ nav {
     width: 100%;
     height: 80px;
 
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
     padding: 0 7%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     z-index: 100;
 
-    background:
-        rgba(8,8,8,0.75);
+    background: rgba(8,8,8,.78);
 
-    backdrop-filter:
-        blur(20px);
-
-    -webkit-backdrop-filter:
-        blur(20px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 
     border-bottom:
-        1px solid
-        rgba(255,255,255,0.06);
+        1px solid rgba(255,255,255,.06);
 }
 
 .logo {
-    color: #ffffff;
+    color: #fff;
+
+    text-decoration: none;
 
     font-size: 24px;
 
     font-weight: 900;
 
     letter-spacing: -1px;
-
-    text-decoration: none;
 }
 
 .logo span {
@@ -158,40 +137,36 @@ nav {
 }
 
 .nav-links {
+    list-style: none;
+
     display: flex;
 
-    align-items: center;
-
     gap: 35px;
-
-    list-style: none;
 }
 
 .nav-links a {
-    color: #888888;
+    color: #888;
 
     text-decoration: none;
 
     font-size: 14px;
 
-    transition:
-        color .3s ease;
+    transition: color .3s ease;
 }
 
 .nav-links a:hover {
-    color: #ffffff;
+    color: #fff;
 }
 
 
-/* ========================================
+/* ================================
    HERO
-======================================== */
+================================ */
 
 .hero {
     min-height: 100vh;
 
     display: flex;
-
     align-items: center;
 
     padding:
@@ -218,11 +193,7 @@ nav {
 
 .hero h1 {
     font-size:
-        clamp(
-            75px,
-            13vw,
-            175px
-        );
+        clamp(75px, 13vw, 175px);
 
     line-height: .82;
 
@@ -240,7 +211,7 @@ nav {
 
     margin-top: 45px;
 
-    color: #999999;
+    color: #999;
 
     font-size: 18px;
 
@@ -258,16 +229,14 @@ nav {
 }
 
 .btn {
+    min-height: 52px;
+
+    padding: 0 28px;
+
     display: inline-flex;
 
     align-items: center;
-
     justify-content: center;
-
-    min-height: 52px;
-
-    padding:
-        0 28px;
 
     border-radius: 100px;
 
@@ -285,14 +254,13 @@ nav {
 }
 
 .primary {
-    background: #ff0080;
+    color: #fff;
 
-    color: #ffffff;
+    background: #ff0080;
 }
 
 .primary:hover {
-    transform:
-        translateY(-4px);
+    transform: translateY(-4px);
 
     box-shadow:
         0 15px 50px
@@ -300,25 +268,24 @@ nav {
 }
 
 .secondary {
-    color: #ffffff;
+    color: #fff;
 
     border:
-        1px solid #333333;
+        1px solid #333;
 }
 
 .secondary:hover {
     background: #151515;
 
-    border-color: #555555;
+    border-color: #555;
 
-    transform:
-        translateY(-4px);
+    transform: translateY(-4px);
 }
 
 
-/* ========================================
+/* ================================
    SECTIONS
-======================================== */
+================================ */
 
 section {
     padding:
@@ -341,11 +308,7 @@ section {
 
 .section-title {
     font-size:
-        clamp(
-            45px,
-            7vw,
-            90px
-        );
+        clamp(45px, 7vw, 90px);
 
     letter-spacing: -5px;
 
@@ -355,9 +318,9 @@ section {
 }
 
 
-/* ========================================
+/* ================================
    PORTFOLIO
-======================================== */
+================================ */
 
 .works {
     display: grid;
@@ -375,15 +338,16 @@ section {
 
     overflow: hidden;
 
-    aspect-ratio:
-        16 / 10;
+    width: 100%;
+
+    aspect-ratio: 16 / 10;
 
     border-radius: 20px;
 
-    background: #111111;
+    background: #111;
 
     border:
-        1px solid #222222;
+        1px solid #222;
 
     cursor: pointer;
 
@@ -394,8 +358,7 @@ section {
 }
 
 .work:hover {
-    transform:
-        translateY(-8px);
+    transform: translateY(-8px);
 
     border-color:
         rgba(255,0,128,.7);
@@ -407,35 +370,38 @@ section {
 
 .work video {
     width: 100%;
-
     height: 100%;
 
     display: block;
 
     object-fit: cover;
 
-    background: #111111;
+    background: #111;
 
     transition:
         transform .6s ease;
 }
 
 .work:hover video {
-    transform:
-        scale(1.04);
+    transform: scale(1.04);
 }
 
 
-/* ========================================
-   VIDEO 3 — VERTICAL
-======================================== */
+/* ================================
+   VERTICAL VIDEOS
+================================ */
+
+/*
+   VIDEO 3
+   VIDEO 4
+
+   Формат 9:16
+*/
 
 .work-vertical {
-    aspect-ratio:
-        9 / 16;
+    aspect-ratio: 9 / 16;
 
-    grid-row:
-        span 2;
+    grid-row: span 2;
 }
 
 .work-vertical video {
@@ -443,16 +409,15 @@ section {
 }
 
 
-/* ========================================
-   VIDEO INFO
-======================================== */
+/* ================================
+   VIDEO INFORMATION
+================================ */
 
 .work-info {
     position: absolute;
 
     left: 0;
     right: 0;
-
     bottom: 0;
 
     padding:
@@ -474,15 +439,15 @@ section {
 }
 
 .work-info p {
-    color: #aaaaaa;
+    color: #aaa;
 
     font-size: 13px;
 }
 
 
-/* ========================================
+/* ================================
    PLAY BUTTON
-======================================== */
+================================ */
 
 .play-indicator {
     position: absolute;
@@ -494,13 +459,11 @@ section {
         translate(-50%, -50%);
 
     width: 65px;
-
     height: 65px;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     border-radius: 50%;
@@ -512,8 +475,7 @@ section {
         1px solid
         rgba(255,255,255,.25);
 
-    backdrop-filter:
-        blur(10px);
+    backdrop-filter: blur(10px);
 
     transition:
         opacity .3s ease,
@@ -528,7 +490,6 @@ section {
     margin-left: 4px;
 
     width: 0;
-
     height: 0;
 
     border-top:
@@ -538,7 +499,7 @@ section {
         9px solid transparent;
 
     border-left:
-        14px solid #ffffff;
+        14px solid #fff;
 }
 
 .work.playing .play-indicator {
@@ -550,18 +511,18 @@ section {
 }
 
 
-/* ========================================
-   HIDDEN VIDEO
-======================================== */
+/* ================================
+   HIDE MISSING VIDEOS
+================================ */
 
 .work.hidden {
     display: none;
 }
 
 
-/* ========================================
+/* ================================
    SERVICES
-======================================== */
+================================ */
 
 .services {
     display: grid;
@@ -578,7 +539,7 @@ section {
     padding: 35px;
 
     border:
-        1px solid #222222;
+        1px solid #222;
 
     border-radius: 18px;
 
@@ -613,7 +574,7 @@ section {
 }
 
 .service p {
-    color: #888888;
+    color: #888;
 
     font-size: 14px;
 
@@ -621,9 +582,9 @@ section {
 }
 
 
-/* ========================================
+/* ================================
    ABOUT
-======================================== */
+================================ */
 
 .about {
     display: grid;
@@ -638,11 +599,7 @@ section {
 
 .about h2 {
     font-size:
-        clamp(
-            50px,
-            7vw,
-            90px
-        );
+        clamp(50px, 7vw, 90px);
 
     line-height: .9;
 
@@ -654,7 +611,7 @@ section {
 }
 
 .about-text {
-    color: #999999;
+    color: #999;
 
     font-size: 16px;
 
@@ -676,7 +633,7 @@ section {
     padding: 25px;
 
     border:
-        1px solid #222222;
+        1px solid #222;
 
     border-radius: 15px;
 }
@@ -690,15 +647,15 @@ section {
 }
 
 .stat span {
-    color: #777777;
+    color: #777;
 
     font-size: 13px;
 }
 
 
-/* ========================================
+/* ================================
    CONTACT
-======================================== */
+================================ */
 
 .contact {
     text-align: center;
@@ -710,11 +667,7 @@ section {
 
 .contact h2 {
     font-size:
-        clamp(
-            60px,
-            10vw,
-            140px
-        );
+        clamp(60px, 10vw, 140px);
 
     line-height: .85;
 
@@ -731,7 +684,7 @@ section {
     margin:
         35px auto;
 
-    color: #888888;
+    color: #888;
 
     line-height: 1.7;
 }
@@ -747,9 +700,9 @@ section {
 }
 
 
-/* ========================================
+/* ================================
    FOOTER
-======================================== */
+================================ */
 
 footer {
     display: flex;
@@ -762,19 +715,19 @@ footer {
     border-top:
         1px solid #1c1c1c;
 
-    color: #555555;
+    color: #555;
 
     font-size: 12px;
 }
 
 footer strong {
-    color: #ffffff;
+    color: #fff;
 }
 
 
-/* ========================================
-   SCROLL ANIMATION
-======================================== */
+/* ================================
+   REVEAL ANIMATION
+================================ */
 
 .reveal {
     opacity: 0;
@@ -795,9 +748,9 @@ footer strong {
 }
 
 
-/* ========================================
+/* ================================
    VIDEO MODAL
-======================================== */
+================================ */
 
 .video-modal {
     position: fixed;
@@ -809,7 +762,6 @@ footer strong {
     display: none;
 
     align-items: center;
-
     justify-content: center;
 
     padding: 30px;
@@ -827,11 +779,9 @@ footer strong {
 
 .video-modal video {
     max-width: 95vw;
-
     max-height: 90vh;
 
     width: auto;
-
     height: auto;
 
     border-radius: 12px;
@@ -845,42 +795,36 @@ footer strong {
     position: absolute;
 
     top: 25px;
-
     right: 30px;
 
     width: 50px;
-
     height: 50px;
 
     border-radius: 50%;
 
     border:
-        1px solid #444444;
+        1px solid #444;
 
     background:
         rgba(255,255,255,.08);
 
-    color: white;
+    color: #fff;
 
     font-size: 28px;
 
     cursor: pointer;
 
     z-index: 10;
-
-    transition:
-        background .3s ease;
 }
 
 .close-video:hover {
-    background:
-        #ff0080;
+    background: #ff0080;
 }
 
 
-/* ========================================
+/* ================================
    TABLET
-======================================== */
+================================ */
 
 @media (max-width: 900px) {
 
@@ -896,27 +840,11 @@ footer strong {
 }
 
 
-/* ========================================
+/* ================================
    MOBILE
-======================================== */
+================================ */
 
 @media (max-width: 600px) {
-
-
-    /* --------------------------------
-       BODY
-    -------------------------------- */
-
-    body {
-        width: 100%;
-
-        overflow-x: hidden;
-    }
-
-
-    /* --------------------------------
-       NAVIGATION
-    -------------------------------- */
 
     nav {
         height: 65px;
@@ -934,23 +862,13 @@ footer strong {
     }
 
 
-    /* --------------------------------
-       HERO
-    -------------------------------- */
+    /* HERO */
 
     .hero {
-        min-height:
-            100svh;
+        min-height: 100svh;
 
         padding:
             120px 20px 60px;
-
-        align-items:
-            center;
-    }
-
-    .hero-content {
-        width: 100%;
     }
 
     .eyebrow {
@@ -969,20 +887,13 @@ footer strong {
                 110px
             );
 
-        line-height:
-            .82;
+        line-height: .82;
 
-        letter-spacing:
-            -6px;
-
-        word-break:
-            break-word;
+        letter-spacing: -6px;
     }
 
     .hero-text {
         margin-top: 30px;
-
-        max-width: 100%;
 
         font-size: 15px;
 
@@ -994,8 +905,6 @@ footer strong {
 
         margin-top: 30px;
 
-        display: flex;
-
         flex-direction: column;
 
         gap: 10px;
@@ -1005,17 +914,10 @@ footer strong {
         width: 100%;
 
         min-height: 54px;
-
-        padding:
-            0 20px;
-
-        font-size: 14px;
     }
 
 
-    /* --------------------------------
-       SECTIONS
-    -------------------------------- */
+    /* SECTIONS */
 
     section {
         padding:
@@ -1026,8 +928,6 @@ footer strong {
         font-size: 10px;
 
         letter-spacing: 2px;
-
-        margin-bottom: 12px;
     }
 
     .section-title {
@@ -1038,23 +938,18 @@ footer strong {
                 65px
             );
 
-        letter-spacing:
-            -3px;
+        letter-spacing: -3px;
 
         margin-bottom: 35px;
     }
 
 
-    /* --------------------------------
-       PORTFOLIO
-    -------------------------------- */
+    /* PORTFOLIO */
 
     .works {
         display: flex;
 
         flex-direction: column;
-
-        width: 100%;
 
         gap: 16px;
     }
@@ -1065,27 +960,21 @@ footer strong {
         aspect-ratio:
             16 / 10;
 
-        border-radius:
-            16px;
+        border-radius: 16px;
     }
 
     .work:hover {
-        transform:
-            none;
+        transform: none;
 
-        box-shadow:
-            none;
+        box-shadow: none;
     }
 
     .work:hover video {
-        transform:
-            none;
+        transform: none;
     }
 
 
-    /* --------------------------------
-       VIDEO 3 MOBILE
-    -------------------------------- */
+    /* VERTICAL VIDEO 3 + 4 */
 
     .work-vertical {
         width: 100%;
@@ -1093,25 +982,19 @@ footer strong {
         aspect-ratio:
             9 / 16;
 
-        grid-row:
-            auto;
+        grid-row: auto;
 
-        align-self:
-            center;
+        align-self: center;
 
-        max-height:
-            680px;
+        max-height: 680px;
     }
 
     .work-vertical video {
-        object-fit:
-            cover;
+        object-fit: cover;
     }
 
 
-    /* --------------------------------
-       VIDEO INFO
-    -------------------------------- */
+    /* INFO */
 
     .work-info {
         padding:
@@ -1119,105 +1002,59 @@ footer strong {
     }
 
     .work-info h3 {
-        font-size:
-            17px;
-
-        margin-bottom:
-            5px;
+        font-size: 17px;
     }
 
     .work-info p {
-        font-size:
-            11px;
+        font-size: 11px;
     }
 
 
-    /* --------------------------------
-       PLAY BUTTON
-    -------------------------------- */
+    /* PLAY */
 
     .play-indicator {
-        width:
-            55px;
-
-        height:
-            55px;
-    }
-
-    .play-indicator::after {
-        border-top-width:
-            8px;
-
-        border-bottom-width:
-            8px;
-
-        border-left-width:
-            12px;
+        width: 55px;
+        height: 55px;
     }
 
 
-    /* --------------------------------
-       SERVICES
-    -------------------------------- */
+    /* SERVICES */
 
     .services {
         display: flex;
 
-        flex-direction:
-            column;
+        flex-direction: column;
 
         gap: 12px;
     }
 
     .service {
-        min-height:
-            auto;
+        min-height: auto;
 
-        padding:
-            25px;
+        padding: 25px;
 
-        border-radius:
-            15px;
+        border-radius: 15px;
     }
 
     .service-number {
-        margin-bottom:
-            28px;
+        margin-bottom: 28px;
     }
 
     .service h3 {
-        font-size:
-            20px;
-
-        margin-bottom:
-            10px;
-    }
-
-    .service p {
-        font-size:
-            14px;
-
-        line-height:
-            1.6;
+        font-size: 20px;
     }
 
 
-    /* --------------------------------
-       ABOUT
-    -------------------------------- */
+    /* ABOUT */
 
     .about {
-        display:
-            flex;
+        display: flex;
 
-        flex-direction:
-            column;
+        flex-direction: column;
 
-        gap:
-            40px;
+        gap: 40px;
 
-        align-items:
-            flex-start;
+        align-items: flex-start;
     }
 
     .about h2 {
@@ -1228,54 +1065,34 @@ footer strong {
                 75px
             );
 
-        letter-spacing:
-            -4px;
+        letter-spacing: -4px;
     }
 
     .about-text {
-        font-size:
-            15px;
+        font-size: 15px;
 
-        line-height:
-            1.7;
+        line-height: 1.7;
     }
 
     .stats {
-        width:
-            100%;
+        width: 100%;
 
         grid-template-columns:
             repeat(2, 1fr);
 
-        gap:
-            10px;
-
-        margin-top:
-            25px;
+        gap: 10px;
     }
 
     .stat {
-        padding:
-            18px;
-
-        border-radius:
-            12px;
+        padding: 18px;
     }
 
     .stat strong {
-        font-size:
-            24px;
-    }
-
-    .stat span {
-        font-size:
-            11px;
+        font-size: 24px;
     }
 
 
-    /* --------------------------------
-       CONTACT
-    -------------------------------- */
+    /* CONTACT */
 
     .contact {
         padding:
@@ -1290,181 +1107,106 @@ footer strong {
                 90px
             );
 
-        letter-spacing:
-            -5px;
-    }
-
-    .contact p {
-        font-size:
-            15px;
-
-        margin:
-            30px auto;
-
-        line-height:
-            1.65;
+        letter-spacing: -5px;
     }
 
     .contact-links {
-        display:
-            flex;
+        flex-direction: column;
 
-        flex-direction:
-            column;
-
-        width:
-            100%;
-
-        gap:
-            10px;
+        width: 100%;
     }
 
 
-    /* --------------------------------
-       FOOTER
-    -------------------------------- */
+    /* FOOTER */
 
     footer {
-        display:
-            flex;
+        flex-direction: column;
 
-        flex-direction:
-            column;
+        align-items: center;
 
-        align-items:
-            center;
+        justify-content: center;
 
-        justify-content:
-            center;
+        text-align: center;
 
-        text-align:
-            center;
-
-        gap:
-            8px;
+        gap: 8px;
 
         padding:
             25px 20px;
-
-        font-size:
-            11px;
     }
 
 
-    /* --------------------------------
-       MODAL
-    -------------------------------- */
+    /* MODAL */
 
     .video-modal {
-        padding:
-            15px;
+        padding: 15px;
     }
 
     .video-modal video {
-        max-width:
-            100vw;
+        max-width: 100vw;
 
-        max-height:
-            85vh;
-
-        border-radius:
-            10px;
+        max-height: 85vh;
     }
 
     .close-video {
-        top:
-            15px;
+        top: 15px;
+        right: 15px;
 
-        right:
-            15px;
+        width: 45px;
+        height: 45px;
 
-        width:
-            45px;
-
-        height:
-            45px;
-
-        font-size:
-            24px;
+        font-size: 24px;
     }
 
 
-    /* --------------------------------
-       GLOW
-    -------------------------------- */
-
     .glow {
-        width:
-            250px;
+        width: 250px;
+        height: 250px;
 
-        height:
-            250px;
-
-        filter:
-            blur(100px);
+        filter: blur(100px);
     }
 
 }
 
 
-/* ========================================
+/* ================================
    VERY SMALL PHONES
-======================================== */
+================================ */
 
 @media (max-width: 380px) {
 
     .hero {
-        padding-left:
-            16px;
-
-        padding-right:
-            16px;
+        padding-left: 16px;
+        padding-right: 16px;
     }
 
     section {
-        padding-left:
-            16px;
-
-        padding-right:
-            16px;
+        padding-left: 16px;
+        padding-right: 16px;
     }
 
     .hero h1 {
-        font-size:
-            21vw;
+        font-size: 21vw;
 
-        letter-spacing:
-            -5px;
-    }
-
-    .stats {
-        gap:
-            8px;
-    }
-
-    .stat {
-        padding:
-            15px;
+        letter-spacing: -5px;
     }
 
 }
 
 
-/* ========================================
+/* ================================
    REDUCE MOTION
-======================================== */
+================================ */
 
 @media (prefers-reduced-motion: reduce) {
 
     * {
-        scroll-behavior:
-            auto !important;
+        scroll-behavior: auto !important;
 
         animation-duration:
-            0.01ms !important;
+            .01ms !important;
 
         transition-duration:
-            0.01ms !important;
+            .01ms !important;
     }
 
 }
@@ -1477,9 +1219,9 @@ footer strong {
 <body>
 
 
-<!-- ========================================
+<!-- ================================
      BACKGROUND
-======================================== -->
+================================ -->
 
 <div class="background">
 
@@ -1490,20 +1232,15 @@ footer strong {
 </div>
 
 
-<!-- ========================================
+<!-- ================================
      NAVIGATION
-======================================== -->
+================================ -->
 
 <nav>
 
-    <a
-        href="#"
-        class="logo">
-
+    <a href="#" class="logo">
         xtayze<span>.</span>
-
     </a>
-
 
     <ul class="nav-links">
 
@@ -1536,9 +1273,9 @@ footer strong {
 </nav>
 
 
-<!-- ========================================
+<!-- ================================
      HERO
-======================================== -->
+================================ -->
 
 <header class="hero">
 
@@ -1548,11 +1285,9 @@ footer strong {
             Video Editor / After Effects
         </div>
 
-
         <h1>
             xtayze<span>.</span>
         </h1>
-
 
         <p class="hero-text">
 
@@ -1563,7 +1298,6 @@ footer strong {
 
         </p>
 
-
         <div class="buttons">
 
             <a
@@ -1573,7 +1307,6 @@ footer strong {
                 Смотреть работы
 
             </a>
-
 
             <a
                 href="https://t.me/xtayzebye"
@@ -1591,9 +1324,9 @@ footer strong {
 </header>
 
 
-<!-- ========================================
+<!-- ================================
      PORTFOLIO
-======================================== -->
+================================ -->
 
 <section id="works">
 
@@ -1602,7 +1335,6 @@ footer strong {
         <div class="section-label">
             01 / Portfolio
         </div>
-
 
         <h2 class="section-title">
             Мои работы
@@ -1614,7 +1346,7 @@ footer strong {
     <div class="works">
 
 
-        <!-- VIDEO 1 -->
+        <!-- VIDEO 1 — HORIZONTAL -->
 
         <div
             class="work reveal"
@@ -1628,9 +1360,7 @@ footer strong {
                 preload="metadata">
             </video>
 
-
             <div class="play-indicator"></div>
-
 
             <div class="work-info">
 
@@ -1647,7 +1377,7 @@ footer strong {
         </div>
 
 
-        <!-- VIDEO 2 -->
+        <!-- VIDEO 2 — HORIZONTAL -->
 
         <div
             class="work reveal"
@@ -1661,9 +1391,7 @@ footer strong {
                 preload="metadata">
             </video>
 
-
             <div class="play-indicator"></div>
-
 
             <div class="work-info">
 
@@ -1680,7 +1408,7 @@ footer strong {
         </div>
 
 
-        <!-- VIDEO 3 — 1080x1920 -->
+        <!-- VIDEO 3 — VERTICAL -->
 
         <div
             class="work work-vertical reveal"
@@ -1694,9 +1422,7 @@ footer strong {
                 preload="metadata">
             </video>
 
-
             <div class="play-indicator"></div>
-
 
             <div class="work-info">
 
@@ -1713,10 +1439,10 @@ footer strong {
         </div>
 
 
-        <!-- VIDEO 4 -->
+        <!-- VIDEO 4 — VERTICAL -->
 
         <div
-            class="work reveal"
+            class="work work-vertical reveal"
             data-video="video4.mp4">
 
             <video
@@ -1727,9 +1453,7 @@ footer strong {
                 preload="metadata">
             </video>
 
-
             <div class="play-indicator"></div>
-
 
             <div class="work-info">
 
@@ -1738,7 +1462,38 @@ footer strong {
                 </h3>
 
                 <p>
-                    Motion Design / Effects
+                    Vertical / 9:16
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- VIDEO 5 — HORIZONTAL -->
+
+        <div
+            class="work reveal"
+            data-video="video5.mp4">
+
+            <video
+                src="video5.mp4"
+                muted
+                loop
+                playsinline
+                preload="metadata">
+            </video>
+
+            <div class="play-indicator"></div>
+
+            <div class="work-info">
+
+                <h3>
+                    Video Project 05
+                </h3>
+
+                <p>
+                    Video Editing / Creative
                 </p>
 
             </div>
@@ -1751,9 +1506,9 @@ footer strong {
 </section>
 
 
-<!-- ========================================
+<!-- ================================
      SERVICES
-======================================== -->
+================================ -->
 
 <section id="services">
 
@@ -1762,7 +1517,6 @@ footer strong {
         <div class="section-label">
             02 / Services
         </div>
-
 
         <h2 class="section-title">
             Что я делаю
@@ -1891,9 +1645,9 @@ footer strong {
 </section>
 
 
-<!-- ========================================
+<!-- ================================
      ABOUT
-======================================== -->
+================================ -->
 
 <section id="about">
 
@@ -1905,7 +1659,6 @@ footer strong {
             <div class="section-label">
                 03 / About
             </div>
-
 
             <h2>
 
@@ -1944,7 +1697,6 @@ footer strong {
 
 
             <div class="stats">
-
 
                 <div class="stat">
 
@@ -1997,7 +1749,6 @@ footer strong {
 
                 </div>
 
-
             </div>
 
         </div>
@@ -2007,22 +1758,19 @@ footer strong {
 </section>
 
 
-<!-- ========================================
+<!-- ================================
      CONTACT
-======================================== -->
+================================ -->
 
 <section
     id="contact"
     class="contact">
 
-
     <div class="reveal">
-
 
         <div class="section-label">
             04 / Contact
         </div>
-
 
         <h2>
 
@@ -2030,7 +1778,6 @@ footer strong {
             <span>работать.</span>
 
         </h2>
-
 
         <p>
 
@@ -2042,9 +1789,7 @@ footer strong {
 
         </p>
 
-
         <div class="contact-links">
-
 
             <a
                 href="https://t.me/xtayzebye"
@@ -2055,7 +1800,6 @@ footer strong {
 
             </a>
 
-
             <a
                 href="mailto:zerekxj@gmail.com"
                 class="btn secondary">
@@ -2064,18 +1808,16 @@ footer strong {
 
             </a>
 
-
         </div>
-
 
     </div>
 
 </section>
 
 
-<!-- ========================================
+<!-- ================================
      FOOTER
-======================================== -->
+================================ -->
 
 <footer>
 
@@ -2086,7 +1828,6 @@ footer strong {
 
     </div>
 
-
     <div>
 
         Video Editor / Motion Designer
@@ -2096,14 +1837,13 @@ footer strong {
 </footer>
 
 
-<!-- ========================================
-     FULLSCREEN VIDEO
-======================================== -->
+<!-- ================================
+     VIDEO MODAL
+================================ -->
 
 <div
     class="video-modal"
     id="videoModal">
-
 
     <button
         class="close-video"
@@ -2114,32 +1854,24 @@ footer strong {
 
     </button>
 
-
     <video
         id="modalVideo"
         controls
         playsinline>
-
     </video>
-
 
 </div>
 
 
-<!-- ========================================
-     JAVASCRIPT
-======================================== -->
-
 <script>
 
 
-/* ========================================
+/* ================================
    SCROLL ANIMATION
-======================================== */
+================================ */
 
 const revealElements =
     document.querySelectorAll(".reveal");
-
 
 const observer =
     new IntersectionObserver(
@@ -2180,13 +1912,12 @@ revealElements.forEach(
 );
 
 
-/* ========================================
-   VIDEOS
-======================================== */
+/* ================================
+   VIDEO ELEMENTS
+================================ */
 
 const works =
     document.querySelectorAll(".work");
-
 
 const isMobile =
     window.matchMedia(
@@ -2194,9 +1925,9 @@ const isMobile =
     ).matches;
 
 
-/* ========================================
+/* ================================
    CHECK VIDEO FILES
-======================================== */
+================================ */
 
 works.forEach(
     function(work) {
@@ -2230,9 +1961,9 @@ works.forEach(
 );
 
 
-/* ========================================
-   DESKTOP — HOVER PLAY
-======================================== */
+/* ================================
+   DESKTOP HOVER
+================================ */
 
 if (!isMobile) {
 
@@ -2249,7 +1980,6 @@ if (!isMobile) {
 
                     video.currentTime = 0;
 
-
                     video.play()
                         .then(
                             function() {
@@ -2261,7 +1991,6 @@ if (!isMobile) {
                         )
                         .catch(
                             function() {}
-
                         );
 
                 }
@@ -2288,9 +2017,9 @@ if (!isMobile) {
 }
 
 
-/* ========================================
-   MOBILE — TAP PLAY
-======================================== */
+/* ================================
+   MOBILE TAP
+================================ */
 
 if (isMobile) {
 
@@ -2342,21 +2071,19 @@ if (isMobile) {
 }
 
 
-/* ========================================
-   FULLSCREEN
-======================================== */
+/* ================================
+   VIDEO MODAL
+================================ */
 
 const modal =
     document.getElementById(
         "videoModal"
     );
 
-
 const modalVideo =
     document.getElementById(
         "modalVideo"
     );
-
 
 const closeButton =
     document.getElementById(
@@ -2467,9 +2194,9 @@ document.addEventListener(
 );
 
 
-/* ========================================
+/* ================================
    MOUSE GLOW
-======================================== */
+================================ */
 
 const glow =
     document.querySelector(".glow");
@@ -2488,9 +2215,7 @@ document.addEventListener(
     }
 );
 
-
 </script>
-
 
 </body>
 
