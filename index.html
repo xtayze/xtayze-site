@@ -1,23 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-      content="width=device-width,
-      initial-scale=1.0,
-      maximum-scale=1.0,
-      user-scalable=no">
-
-<title>xtayze — Video Editor</title>
+<title>xtayze. — Video Editor</title>
 
 <style>
-
-/* ================================
-   RESET
-================================ */
 
 * {
     margin: 0;
@@ -31,105 +20,99 @@ html {
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: #080808;
+    background: #050505;
     color: #fff;
     overflow-x: hidden;
 }
 
-::selection {
-    background: #ff0080;
-    color: #fff;
-}
-
-
-/* ================================
+/* =========================
    BACKGROUND
-================================ */
+========================= */
 
-.background {
+body::before {
+    content: "";
     position: fixed;
     inset: 0;
-    z-index: -10;
     pointer-events: none;
-    overflow: hidden;
-}
-
-.grid {
-    position: absolute;
-    inset: 0;
-
-    opacity: .035;
+    opacity: 0.18;
 
     background-image:
-        linear-gradient(
-            rgba(255,255,255,.5) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.5) 1px,
-            transparent 1px
-        );
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
 
-    background-size: 70px 70px;
+    background-size: 50px 50px;
 }
 
-.glow {
-    position: absolute;
-
-    width: 500px;
-    height: 500px;
-
-    border-radius: 50%;
-
-    background: rgba(255,0,128,.09);
-
-    filter: blur(120px);
-
-    transform: translate(-50%, -50%);
-}
-
-
-/* ================================
-   NAVIGATION
-================================ */
-
-nav {
+body::after {
+    content: "";
     position: fixed;
+    width: 600px;
+    height: 600px;
+    background: #ff0080;
+    filter: blur(180px);
+    opacity: 0.08;
+    border-radius: 50%;
+    top: -250px;
+    right: -200px;
+    pointer-events: none;
+}
 
+/* =========================
+   GENERAL
+========================= */
+
+.container {
+    width: min(1200px, 90%);
+    margin: auto;
+}
+
+section {
+    padding: 120px 0;
+}
+
+.section-title {
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 900;
+    letter-spacing: -4px;
+    margin-bottom: 60px;
+}
+
+.pink {
+    color: #ff0080;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    position: fixed;
     top: 0;
     left: 0;
-
     width: 100%;
-    height: 80px;
+    z-index: 1000;
 
-    padding: 0 7%;
+    padding: 25px 0;
+
+    background: rgba(5,5,5,0.75);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.nav {
+    width: min(1200px, 90%);
+    margin: auto;
 
     display: flex;
-    align-items: center;
     justify-content: space-between;
-
-    z-index: 100;
-
-    background: rgba(8,8,8,.78);
-
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-
-    border-bottom:
-        1px solid rgba(255,255,255,.06);
+    align-items: center;
 }
 
 .logo {
-    color: #fff;
-
+    color: white;
     text-decoration: none;
-
-    font-size: 24px;
-
+    font-size: 25px;
     font-weight: 900;
-
-    letter-spacing: -1px;
 }
 
 .logo span {
@@ -137,68 +120,48 @@ nav {
 }
 
 .nav-links {
-    list-style: none;
-
     display: flex;
-
     gap: 35px;
 }
 
 .nav-links a {
-    color: #888;
-
+    color: #aaa;
     text-decoration: none;
-
     font-size: 14px;
-
-    transition: color .3s ease;
+    transition: 0.3s;
 }
 
 .nav-links a:hover {
-    color: #fff;
+    color: #ff0080;
 }
 
-
-/* ================================
+/* =========================
    HERO
-================================ */
+========================= */
 
 .hero {
     min-height: 100vh;
-
     display: flex;
     align-items: center;
-
-    padding:
-        140px 8% 100px;
+    padding-top: 100px;
 }
 
 .hero-content {
-    max-width: 1100px;
+    max-width: 1000px;
 }
 
-.eyebrow {
+.hero-small {
     color: #ff0080;
-
-    font-size: 13px;
-
-    font-weight: 700;
-
+    font-size: 14px;
     letter-spacing: 4px;
-
     text-transform: uppercase;
-
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .hero h1 {
-    font-size:
-        clamp(75px, 13vw, 175px);
-
-    line-height: .82;
-
-    letter-spacing: -10px;
-
+    font-size: clamp(70px, 13vw, 180px);
+    line-height: 0.85;
+    letter-spacing: -9px;
     font-weight: 900;
 }
 
@@ -206,571 +169,270 @@ nav {
     color: #ff0080;
 }
 
-.hero-text {
-    max-width: 620px;
-
-    margin-top: 45px;
-
+.hero-description {
+    margin-top: 40px;
     color: #999;
-
     font-size: 18px;
-
-    line-height: 1.7;
+    max-width: 550px;
+    line-height: 1.6;
 }
 
-.buttons {
-    display: flex;
-
-    gap: 15px;
-
+.hero-button {
+    display: inline-block;
     margin-top: 40px;
 
-    flex-wrap: wrap;
-}
-
-.btn {
-    min-height: 52px;
-
-    padding: 0 28px;
-
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 100px;
-
-    text-decoration: none;
-
-    font-size: 14px;
-
-    font-weight: 700;
-
-    transition:
-        transform .3s ease,
-        box-shadow .3s ease,
-        background .3s ease,
-        border .3s ease;
-}
-
-.primary {
-    color: #fff;
+    padding: 17px 30px;
 
     background: #ff0080;
-}
+    color: white;
 
-.primary:hover {
-    transform: translateY(-4px);
-
-    box-shadow:
-        0 15px 50px
-        rgba(255,0,128,.3);
-}
-
-.secondary {
-    color: #fff;
-
-    border:
-        1px solid #333;
-}
-
-.secondary:hover {
-    background: #151515;
-
-    border-color: #555;
-
-    transform: translateY(-4px);
-}
-
-
-/* ================================
-   SECTIONS
-================================ */
-
-section {
-    padding:
-        130px 8%;
-}
-
-.section-label {
-    color: #ff0080;
-
-    font-size: 12px;
-
+    text-decoration: none;
     font-weight: 700;
 
-    letter-spacing: 3px;
-
-    text-transform: uppercase;
-
-    margin-bottom: 15px;
+    transition: 0.3s;
 }
 
-.section-title {
-    font-size:
-        clamp(45px, 7vw, 90px);
-
-    letter-spacing: -5px;
-
-    line-height: 1;
-
-    margin-bottom: 60px;
+.hero-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255,0,128,0.25);
 }
 
+/* =========================
+   STATS
+========================= */
 
-/* ================================
-   PORTFOLIO
-================================ */
-
-.works {
+.stats {
     display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 100px;
+}
 
-    grid-template-columns:
-        repeat(2, 1fr);
+.stat {
+    border-top: 1px solid #333;
+    padding-top: 20px;
+}
 
-    gap: 25px;
+.stat-number {
+    font-size: 35px;
+    font-weight: 900;
+}
 
-    align-items: start;
+.stat-text {
+    color: #777;
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+/* =========================
+   PORTFOLIO
+========================= */
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
 }
 
 .work {
     position: relative;
-
     overflow: hidden;
-
-    width: 100%;
-
-    aspect-ratio: 16 / 10;
-
-    border-radius: 20px;
-
-    background: #111;
-
-    border:
-        1px solid #222;
-
+    background: #101010;
     cursor: pointer;
-
-    transition:
-        transform .4s ease,
-        border .4s ease,
-        box-shadow .4s ease;
 }
 
-.work:hover {
-    transform: translateY(-8px);
+.work-horizontal {
+    aspect-ratio: 16 / 9;
+}
 
-    border-color:
-        rgba(255,0,128,.7);
-
-    box-shadow:
-        0 20px 70px
-        rgba(0,0,0,.5);
+.work-vertical {
+    aspect-ratio: 9 / 16;
 }
 
 .work video {
     width: 100%;
     height: 100%;
 
-    display: block;
-
     object-fit: cover;
 
-    background: #111;
+    display: block;
 
-    transition:
-        transform .6s ease;
+    transition: transform 0.5s ease;
 }
 
 .work:hover video {
     transform: scale(1.04);
 }
 
-
-/* ================================
-   VERTICAL VIDEOS
-================================ */
-
-/*
-   VIDEO 3
-   VIDEO 4
-
-   Формат 9:16
-*/
-
-.work-vertical {
-    aspect-ratio: 9 / 16;
-
-    grid-row: span 2;
-}
-
-.work-vertical video {
-    object-fit: cover;
-}
-
-
-/* ================================
-   VIDEO INFORMATION
-================================ */
-
-.work-info {
+.work-overlay {
     position: absolute;
-
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    padding:
-        80px 25px 25px;
-
-    background:
-        linear-gradient(
-            transparent,
-            rgba(0,0,0,.95)
-        );
-
-    pointer-events: none;
-}
-
-.work-info h3 {
-    font-size: 20px;
-
-    margin-bottom: 7px;
-}
-
-.work-info p {
-    color: #aaa;
-
-    font-size: 13px;
-}
-
-
-/* ================================
-   PLAY BUTTON
-================================ */
-
-.play-indicator {
-    position: absolute;
-
-    top: 50%;
-    left: 50%;
-
-    transform:
-        translate(-50%, -50%);
-
-    width: 65px;
-    height: 65px;
+    inset: 0;
 
     display: flex;
+    align-items: flex-end;
 
-    align-items: center;
-    justify-content: center;
+    padding: 25px;
 
-    border-radius: 50%;
+    background: linear-gradient(
+        transparent,
+        rgba(0,0,0,0.8)
+    );
 
-    background:
-        rgba(255,255,255,.12);
-
-    border:
-        1px solid
-        rgba(255,255,255,.25);
-
-    backdrop-filter: blur(10px);
-
-    transition:
-        opacity .3s ease,
-        transform .3s ease;
-
-    pointer-events: none;
-}
-
-.play-indicator::after {
-    content: "";
-
-    margin-left: 4px;
-
-    width: 0;
-    height: 0;
-
-    border-top:
-        9px solid transparent;
-
-    border-bottom:
-        9px solid transparent;
-
-    border-left:
-        14px solid #fff;
-}
-
-.work.playing .play-indicator {
     opacity: 0;
-
-    transform:
-        translate(-50%, -50%)
-        scale(.7);
+    transition: 0.3s;
 }
 
-
-/* ================================
-   HIDE MISSING VIDEOS
-================================ */
-
-.work.hidden {
-    display: none;
+.work:hover .work-overlay {
+    opacity: 1;
 }
 
+.work-title {
+    font-size: 20px;
+    font-weight: 800;
+}
 
-/* ================================
+.work-type {
+    margin-top: 5px;
+    color: #ff0080;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* =========================
    SERVICES
-================================ */
+========================= */
 
 .services {
     display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 18px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
 .service {
-    min-height: 230px;
-
+    border: 1px solid #222;
     padding: 35px;
-
-    border:
-        1px solid #222;
-
-    border-radius: 18px;
-
-    background:
-        rgba(255,255,255,.015);
-
-    transition:
-        transform .35s ease,
-        border .35s ease;
+    transition: 0.3s;
 }
 
 .service:hover {
-    transform:
-        translateY(-7px);
-
-    border-color:
-        #ff0080;
+    border-color: #ff0080;
+    transform: translateY(-7px);
 }
 
 .service-number {
     color: #ff0080;
-
     font-size: 13px;
-
-    margin-bottom: 45px;
+    margin-bottom: 40px;
 }
 
 .service h3 {
-    font-size: 22px;
-
+    font-size: 25px;
     margin-bottom: 15px;
 }
 
 .service p {
-    color: #888;
-
-    font-size: 14px;
-
-    line-height: 1.7;
+    color: #777;
+    line-height: 1.6;
 }
 
-
-/* ================================
+/* =========================
    ABOUT
-================================ */
+========================= */
 
 .about {
     display: grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
+    grid-template-columns: 1fr 1fr;
     gap: 80px;
-
     align-items: center;
 }
 
 .about h2 {
-    font-size:
-        clamp(50px, 7vw, 90px);
-
-    line-height: .9;
-
-    letter-spacing: -5px;
-}
-
-.about h2 span {
-    color: #ff0080;
+    font-size: clamp(45px, 6vw, 80px);
+    line-height: 0.95;
+    letter-spacing: -4px;
 }
 
 .about-text {
-    color: #999;
-
-    font-size: 16px;
-
+    color: #888;
+    font-size: 18px;
     line-height: 1.8;
 }
 
-.stats {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 15px;
-
-    margin-top: 30px;
-}
-
-.stat {
-    padding: 25px;
-
-    border:
-        1px solid #222;
-
-    border-radius: 15px;
-}
-
-.stat strong {
-    display: block;
-
-    font-size: 30px;
-
-    margin-bottom: 5px;
-}
-
-.stat span {
-    color: #777;
-
-    font-size: 13px;
-}
-
-
-/* ================================
+/* =========================
    CONTACT
-================================ */
+========================= */
 
 .contact {
     text-align: center;
-
-    padding-top: 160px;
-
-    padding-bottom: 160px;
 }
 
 .contact h2 {
-    font-size:
-        clamp(60px, 10vw, 140px);
-
-    line-height: .85;
-
-    letter-spacing: -8px;
-}
-
-.contact h2 span {
-    color: #ff0080;
+    font-size: clamp(50px, 8vw, 110px);
+    letter-spacing: -6px;
 }
 
 .contact p {
-    max-width: 520px;
-
-    margin:
-        35px auto;
-
-    color: #888;
-
-    line-height: 1.7;
+    color: #777;
+    margin: 30px auto;
+    max-width: 500px;
 }
 
 .contact-links {
     display: flex;
-
     justify-content: center;
-
     gap: 15px;
-
     flex-wrap: wrap;
 }
 
+.contact-link {
+    padding: 16px 25px;
+    border: 1px solid #333;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
 
-/* ================================
+.contact-link:hover {
+    background: #ff0080;
+    border-color: #ff0080;
+}
+
+/* =========================
    FOOTER
-================================ */
+========================= */
 
 footer {
-    display: flex;
-
-    justify-content: space-between;
-
-    padding:
-        25px 8%;
-
-    border-top:
-        1px solid #1c1c1c;
-
+    padding: 40px 0;
+    border-top: 1px solid #1b1b1b;
     color: #555;
-
-    font-size: 12px;
+    font-size: 13px;
 }
 
-footer strong {
-    color: #fff;
+.footer-inner {
+    width: min(1200px, 90%);
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
 }
 
-
-/* ================================
-   REVEAL ANIMATION
-================================ */
-
-.reveal {
-    opacity: 0;
-
-    transform:
-        translateY(35px);
-
-    transition:
-        opacity .8s ease,
-        transform .8s ease;
-}
-
-.reveal.active {
-    opacity: 1;
-
-    transform:
-        translateY(0);
-}
-
-
-/* ================================
-   VIDEO MODAL
-================================ */
+/* =========================
+   MODAL
+========================= */
 
 .video-modal {
     position: fixed;
-
     inset: 0;
+    z-index: 9999;
 
-    z-index: 1000;
+    background: rgba(0,0,0,0.95);
 
     display: none;
-
     align-items: center;
     justify-content: center;
 
     padding: 30px;
-
-    background:
-        rgba(0,0,0,.94);
-
-    backdrop-filter:
-        blur(15px);
 }
 
 .video-modal.active {
@@ -780,974 +442,474 @@ footer strong {
 .video-modal video {
     max-width: 95vw;
     max-height: 90vh;
-
-    width: auto;
-    height: auto;
-
-    border-radius: 12px;
-
-    box-shadow:
-        0 30px 100px
-        rgba(0,0,0,.8);
 }
 
-.close-video {
+.close-modal {
     position: absolute;
-
     top: 25px;
     right: 30px;
 
-    width: 50px;
-    height: 50px;
-
-    border-radius: 50%;
-
-    border:
-        1px solid #444;
-
-    background:
-        rgba(255,255,255,.08);
-
-    color: #fff;
-
-    font-size: 28px;
+    color: white;
+    font-size: 40px;
 
     cursor: pointer;
-
-    z-index: 10;
 }
 
-.close-video:hover {
-    background: #ff0080;
-}
-
-
-/* ================================
-   TABLET
-================================ */
-
-@media (max-width: 900px) {
-
-    .services {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
-
-    .about {
-        gap: 40px;
-    }
-
-}
-
-
-/* ================================
+/* =========================
    MOBILE
-================================ */
+========================= */
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
 
-    nav {
-        height: 65px;
-
-        padding:
-            0 20px;
-    }
-
-    .logo {
-        font-size: 21px;
+    section {
+        padding: 80px 0;
     }
 
     .nav-links {
         display: none;
     }
 
-
-    /* HERO */
-
-    .hero {
-        min-height: 100svh;
-
-        padding:
-            120px 20px 60px;
-    }
-
-    .eyebrow {
-        font-size: 10px;
-
-        letter-spacing: 2.5px;
-
-        margin-bottom: 24px;
-    }
-
     .hero h1 {
-        font-size:
-            clamp(
-                65px,
-                22vw,
-                110px
-            );
-
-        line-height: .82;
-
-        letter-spacing: -6px;
-    }
-
-    .hero-text {
-        margin-top: 30px;
-
-        font-size: 15px;
-
-        line-height: 1.65;
-    }
-
-    .buttons {
-        width: 100%;
-
-        margin-top: 30px;
-
-        flex-direction: column;
-
-        gap: 10px;
-    }
-
-    .btn {
-        width: 100%;
-
-        min-height: 54px;
-    }
-
-
-    /* SECTIONS */
-
-    section {
-        padding:
-            80px 20px;
-    }
-
-    .section-label {
-        font-size: 10px;
-
-        letter-spacing: 2px;
-    }
-
-    .section-title {
-        font-size:
-            clamp(
-                42px,
-                14vw,
-                65px
-            );
-
-        letter-spacing: -3px;
-
-        margin-bottom: 35px;
-    }
-
-
-    /* PORTFOLIO */
-
-    .works {
-        display: flex;
-
-        flex-direction: column;
-
-        gap: 16px;
-    }
-
-    .work {
-        width: 100%;
-
-        aspect-ratio:
-            16 / 10;
-
-        border-radius: 16px;
-    }
-
-    .work:hover {
-        transform: none;
-
-        box-shadow: none;
-    }
-
-    .work:hover video {
-        transform: none;
-    }
-
-
-    /* VERTICAL VIDEO 3 + 4 */
-
-    .work-vertical {
-        width: 100%;
-
-        aspect-ratio:
-            9 / 16;
-
-        grid-row: auto;
-
-        align-self: center;
-
-        max-height: 680px;
-    }
-
-    .work-vertical video {
-        object-fit: cover;
-    }
-
-
-    /* INFO */
-
-    .work-info {
-        padding:
-            80px 18px 18px;
-    }
-
-    .work-info h3 {
-        font-size: 17px;
-    }
-
-    .work-info p {
-        font-size: 11px;
-    }
-
-
-    /* PLAY */
-
-    .play-indicator {
-        width: 55px;
-        height: 55px;
-    }
-
-
-    /* SERVICES */
-
-    .services {
-        display: flex;
-
-        flex-direction: column;
-
-        gap: 12px;
-    }
-
-    .service {
-        min-height: auto;
-
-        padding: 25px;
-
-        border-radius: 15px;
-    }
-
-    .service-number {
-        margin-bottom: 28px;
-    }
-
-    .service h3 {
-        font-size: 20px;
-    }
-
-
-    /* ABOUT */
-
-    .about {
-        display: flex;
-
-        flex-direction: column;
-
-        gap: 40px;
-
-        align-items: flex-start;
-    }
-
-    .about h2 {
-        font-size:
-            clamp(
-                48px,
-                16vw,
-                75px
-            );
-
-        letter-spacing: -4px;
-    }
-
-    .about-text {
-        font-size: 15px;
-
-        line-height: 1.7;
+        letter-spacing: -5px;
     }
 
     .stats {
-        width: 100%;
+        grid-template-columns: 1fr;
+        margin-top: 60px;
+    }
 
-        grid-template-columns:
-            repeat(2, 1fr);
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
 
+    .work-vertical {
+        aspect-ratio: 9 / 16;
+    }
+
+    .services {
+        grid-template-columns: 1fr;
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .footer-inner {
+        flex-direction: column;
         gap: 10px;
     }
-
-    .stat {
-        padding: 18px;
-    }
-
-    .stat strong {
-        font-size: 24px;
-    }
-
-
-    /* CONTACT */
-
-    .contact {
-        padding:
-            100px 20px;
-    }
-
-    .contact h2 {
-        font-size:
-            clamp(
-                58px,
-                18vw,
-                90px
-            );
-
-        letter-spacing: -5px;
-    }
-
-    .contact-links {
-        flex-direction: column;
-
-        width: 100%;
-    }
-
-
-    /* FOOTER */
-
-    footer {
-        flex-direction: column;
-
-        align-items: center;
-
-        justify-content: center;
-
-        text-align: center;
-
-        gap: 8px;
-
-        padding:
-            25px 20px;
-    }
-
-
-    /* MODAL */
-
-    .video-modal {
-        padding: 15px;
-    }
-
-    .video-modal video {
-        max-width: 100vw;
-
-        max-height: 85vh;
-    }
-
-    .close-video {
-        top: 15px;
-        right: 15px;
-
-        width: 45px;
-        height: 45px;
-
-        font-size: 24px;
-    }
-
-
-    .glow {
-        width: 250px;
-        height: 250px;
-
-        filter: blur(100px);
-    }
-
-}
-
-
-/* ================================
-   VERY SMALL PHONES
-================================ */
-
-@media (max-width: 380px) {
-
-    .hero {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-
-    section {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-
-    .hero h1 {
-        font-size: 21vw;
-
-        letter-spacing: -5px;
-    }
-
-}
-
-
-/* ================================
-   REDUCE MOTION
-================================ */
-
-@media (prefers-reduced-motion: reduce) {
-
-    * {
-        scroll-behavior: auto !important;
-
-        animation-duration:
-            .01ms !important;
-
-        transition-duration:
-            .01ms !important;
-    }
-
 }
 
 </style>
-
 </head>
-
 
 <body>
 
+<!-- =========================
+     HEADER
+========================= -->
 
-<!-- ================================
-     BACKGROUND
-================================ -->
+<header>
 
-<div class="background">
+    <nav class="nav">
 
-    <div class="grid"></div>
-
-    <div class="glow"></div>
-
-</div>
-
-
-<!-- ================================
-     NAVIGATION
-================================ -->
-
-<nav>
-
-    <a href="#" class="logo">
-        xtayze<span>.</span>
-    </a>
-
-    <ul class="nav-links">
-
-        <li>
-            <a href="#works">
-                Работы
-            </a>
-        </li>
-
-        <li>
-            <a href="#services">
-                Услуги
-            </a>
-        </li>
-
-        <li>
-            <a href="#about">
-                Обо мне
-            </a>
-        </li>
-
-        <li>
-            <a href="#contact">
-                Контакты
-            </a>
-        </li>
-
-    </ul>
-
-</nav>
-
-
-<!-- ================================
-     HERO
-================================ -->
-
-<header class="hero">
-
-    <div class="hero-content reveal">
-
-        <div class="eyebrow">
-            Video Editor / After Effects
-        </div>
-
-        <h1>
+        <a href="#" class="logo">
             xtayze<span>.</span>
-        </h1>
+        </a>
 
-        <p class="hero-text">
-
-            Создаю динамичный и современный
-            видеомонтаж, который удерживает
-            внимание и помогает контенту
-            выглядеть профессионально.
-
-        </p>
-
-        <div class="buttons">
-
-            <a
-                href="#works"
-                class="btn primary">
-
-                Смотреть работы
-
-            </a>
-
-            <a
-                href="https://t.me/xtayzebye"
-                target="_blank"
-                class="btn secondary">
-
-                Написать мне
-
-            </a>
-
+        <div class="nav-links">
+            <a href="#works">Работы</a>
+            <a href="#services">Услуги</a>
+            <a href="#about">Обо мне</a>
+            <a href="#contact">Контакты</a>
         </div>
 
-    </div>
+    </nav>
 
 </header>
 
 
-<!-- ================================
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <div class="hero-small">
+                Video Editor / After Effects
+            </div>
+
+            <h1>
+                xtayze<span>.</span>
+            </h1>
+
+            <p class="hero-description">
+                Создаю динамичный видеомонтаж,
+                который удерживает внимание
+                и помогает контенту выделяться.
+            </p>
+
+            <a href="#works" class="hero-button">
+                Смотреть работы →
+            </a>
+
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat">
+                <div class="stat-number">AE</div>
+                <div class="stat-text">
+                    After Effects
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-number">PR</div>
+                <div class="stat-text">
+                    Premiere Pro
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-number">24/7</div>
+                <div class="stat-text">
+                    На связи
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
      PORTFOLIO
-================================ -->
+========================= -->
 
 <section id="works">
 
-    <div class="reveal">
+    <div class="container">
 
-        <div class="section-label">
-            01 / Portfolio
+        <div class="section-title">
+            МОИ <span class="pink">РАБОТЫ</span>
         </div>
 
-        <h2 class="section-title">
-            Мои работы
-        </h2>
 
-    </div>
+        <div class="portfolio-grid">
 
 
-    <div class="works">
+            <!-- VIDEO 1 -->
 
+            <div class="work work-horizontal"
+                 ondblclick="openVideo(this)">
 
-        <!-- VIDEO 1 — HORIZONTAL -->
+                <video
+                    src="https://res.cloudinary.com/cjq0fysu/video/upload/video1.mp4"
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata">
+                </video>
 
-        <div
-            class="work reveal"
-            data-video="video1.mp4">
+                <div class="work-overlay">
 
-            <video
-                src="video1.mp4"
-                muted
-                loop
-                playsinline
-                preload="metadata">
-            </video>
+                    <div>
+                        <div class="work-title">
+                            Работа №01
+                        </div>
 
-            <div class="play-indicator"></div>
+                        <div class="work-type">
+                            Video Editing
+                        </div>
+                    </div>
 
-            <div class="work-info">
-
-                <h3>
-                    Video Project 01
-                </h3>
-
-                <p>
-                    Video Editing / Motion Design
-                </p>
+                </div>
 
             </div>
 
-        </div>
 
+            <!-- VIDEO 2 -->
 
-        <!-- VIDEO 2 — HORIZONTAL -->
+            <div class="work work-horizontal"
+                 ondblclick="openVideo(this)">
 
-        <div
-            class="work reveal"
-            data-video="video2.mp4">
+                <video
+                    src="https://res.cloudinary.com/cjq0fysu/video/upload/video2.mp4"
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata">
+                </video>
 
-            <video
-                src="video2.mp4"
-                muted
-                loop
-                playsinline
-                preload="metadata">
-            </video>
+                <div class="work-overlay">
 
-            <div class="play-indicator"></div>
+                    <div>
+                        <div class="work-title">
+                            Работа №02
+                        </div>
 
-            <div class="work-info">
+                        <div class="work-type">
+                            Video Editing
+                        </div>
+                    </div>
 
-                <h3>
-                    Video Project 02
-                </h3>
-
-                <p>
-                    Creative Editing
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- VIDEO 3 — VERTICAL -->
-
-        <div
-            class="work work-vertical reveal"
-            data-video="video3.mp4">
-
-            <video
-                src="video3.mp4"
-                muted
-                loop
-                playsinline
-                preload="metadata">
-            </video>
-
-            <div class="play-indicator"></div>
-
-            <div class="work-info">
-
-                <h3>
-                    Video Project 03
-                </h3>
-
-                <p>
-                    Vertical / 1080×1920
-                </p>
+                </div>
 
             </div>
 
-        </div>
 
+            <!-- VIDEO 3 -->
 
-        <!-- VIDEO 4 — VERTICAL -->
+            <div class="work work-vertical"
+                 ondblclick="openVideo(this)">
 
-        <div
-            class="work work-vertical reveal"
-            data-video="video4.mp4">
+                <video
+                    src="https://res.cloudinary.com/cjq0fysu/video/upload/video3.mp4"
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata">
+                </video>
 
-            <video
-                src="video4.mp4"
-                muted
-                loop
-                playsinline
-                preload="metadata">
-            </video>
+                <div class="work-overlay">
 
-            <div class="play-indicator"></div>
+                    <div>
+                        <div class="work-title">
+                            Работа №03
+                        </div>
 
-            <div class="work-info">
+                        <div class="work-type">
+                            Reels / Shorts
+                        </div>
+                    </div>
 
-                <h3>
-                    Video Project 04
-                </h3>
-
-                <p>
-                    Vertical / 9:16
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- VIDEO 5 — HORIZONTAL -->
-
-        <div
-            class="work reveal"
-            data-video="video5.mp4">
-
-            <video
-                src="video5.mp4"
-                muted
-                loop
-                playsinline
-                preload="metadata">
-            </video>
-
-            <div class="play-indicator"></div>
-
-            <div class="work-info">
-
-                <h3>
-                    Video Project 05
-                </h3>
-
-                <p>
-                    Video Editing / Creative
-                </p>
+                </div>
 
             </div>
 
-        </div>
 
+            <!-- VIDEO 4 -->
+
+            <div class="work work-vertical"
+                 ondblclick="openVideo(this)">
+
+                <video
+                    src="https://res.cloudinary.com/cjq0fysu/video/upload/video4.mp4"
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata">
+                </video>
+
+                <div class="work-overlay">
+
+                    <div>
+                        <div class="work-title">
+                            Работа №04
+                        </div>
+
+                        <div class="work-type">
+                            Reels / Shorts
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- VIDEO 5 -->
+
+            <div class="work work-horizontal"
+                 ondblclick="openVideo(this)">
+
+                <video
+                    src="https://res.cloudinary.com/cjq0fysu/video/upload/video5.mp4"
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata">
+                </video>
+
+                <div class="work-overlay">
+
+                    <div>
+                        <div class="work-title">
+                            Работа №05
+                        </div>
+
+                        <div class="work-type">
+                            Video Editing
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
 
     </div>
 
 </section>
 
 
-<!-- ================================
+<!-- =========================
      SERVICES
-================================ -->
+========================= -->
 
 <section id="services">
 
-    <div class="reveal">
+    <div class="container">
 
-        <div class="section-label">
-            02 / Services
+        <div class="section-title">
+            ЧТО Я <span class="pink">ДЕЛАЮ</span>
         </div>
 
-        <h2 class="section-title">
-            Что я делаю
-        </h2>
 
-    </div>
+        <div class="services">
 
+            <div class="service">
 
-    <div class="services">
+                <div class="service-number">
+                    01
+                </div>
 
+                <h3>
+                    Shorts / Reels
+                </h3>
 
-        <div class="service reveal">
+                <p>
+                    Динамичный монтаж коротких
+                    роликов для социальных сетей.
+                </p>
 
-            <div class="service-number">
-                01
             </div>
 
-            <h3>
-                Shorts / Reels
-            </h3>
 
-            <p>
-                Динамичный монтаж коротких
-                роликов для TikTok, Instagram
-                и YouTube.
-            </p>
+            <div class="service">
 
-        </div>
+                <div class="service-number">
+                    02
+                </div>
 
+                <h3>
+                    Motion Design
+                </h3>
 
-        <div class="service reveal">
+                <p>
+                    Анимация, графика, эффекты
+                    и визуальные акценты.
+                </p>
 
-            <div class="service-number">
-                02
             </div>
 
-            <h3>
-                Motion Design
-            </h3>
 
-            <p>
-                Анимация, графика, эффекты
-                и визуальные переходы
-                в After Effects.
-            </p>
+            <div class="service">
 
-        </div>
+                <div class="service-number">
+                    03
+                </div>
 
+                <h3>
+                    Video Editing
+                </h3>
 
-        <div class="service reveal">
+                <p>
+                    Полный монтаж роликов
+                    от исходников до готового видео.
+                </p>
 
-            <div class="service-number">
-                03
             </div>
 
-            <h3>
-                YouTube
-            </h3>
-
-            <p>
-                Монтаж длинных видео,
-                субтитры, звуки, эффекты
-                и удержание внимания.
-            </p>
-
         </div>
-
-
-        <div class="service reveal">
-
-            <div class="service-number">
-                04
-            </div>
-
-            <h3>
-                Реклама
-            </h3>
-
-            <p>
-                Рекламные ролики для брендов,
-                экспертов и бизнеса.
-            </p>
-
-        </div>
-
-
-        <div class="service reveal">
-
-            <div class="service-number">
-                05
-            </div>
-
-            <h3>
-                Sound Design
-            </h3>
-
-            <p>
-                Музыка, звуковые эффекты
-                и синхронизация звука
-                с видео.
-            </p>
-
-        </div>
-
-
-        <div class="service reveal">
-
-            <div class="service-number">
-                06
-            </div>
-
-            <h3>
-                Color
-            </h3>
-
-            <p>
-                Цветокоррекция и создание
-                подходящего визуального стиля.
-            </p>
-
-        </div>
-
 
     </div>
 
 </section>
 
 
-<!-- ================================
+<!-- =========================
      ABOUT
-================================ -->
+========================= -->
 
 <section id="about">
 
-    <div class="about">
+    <div class="container">
 
-
-        <div class="reveal">
-
-            <div class="section-label">
-                03 / About
-            </div>
+        <div class="about">
 
             <h2>
-
-                Монтаж,<br>
-                который<br>
-                <span>цепляет.</span>
-
+                МОНТАЖ —
+                <span class="pink">ЭТО</span>
+                БОЛЬШЕ
             </h2>
-
-        </div>
-
-
-        <div class="reveal">
 
             <p class="about-text">
 
-                Я — xtayze, видеомонтажёр,
-                который превращает обычный
-                исходник в динамичный и
-                визуально привлекательный контент.
+                Я создаю монтаж, который не просто
+                показывает видео, а удерживает внимание
+                зрителя.
 
                 <br><br>
 
-                Работаю с монтажом,
-                Motion Design,
-                визуальными эффектами,
-                звуком и цветокоррекцией.
-
-                <br><br>
-
-                Моя цель — не просто красиво
-                смонтировать видео, а сделать так,
-                чтобы его хотелось смотреть дальше.
+                Работаю с динамикой, музыкой,
+                переходами, текстом, эффектами
+                и motion design.
 
             </p>
 
+        </div>
 
-            <div class="stats">
+    </div>
 
-                <div class="stat">
-
-                    <strong>
-                        AE
-                    </strong>
-
-                    <span>
-                        After Effects
-                    </span>
-
-                </div>
+</section>
 
 
-                <div class="stat">
+<!-- =========================
+     CONTACT
+========================= -->
 
-                    <strong>
-                        PR
-                    </strong>
+<section id="contact">
 
-                    <span>
-                        Premiere Pro
-                    </span>
+    <div class="container">
 
-                </div>
+        <div class="contact">
 
+            <h2>
+                ДАВАЙ <span class="pink">РАБОТАТЬ</span>
+            </h2>
 
-                <div class="stat">
-
-                    <strong>
-                        100%
-                    </strong>
-
-                    <span>
-                        Внимание к деталям
-                    </span>
-
-                </div>
+            <p>
+                Есть идея или проект?
+                Напиши мне — обсудим детали.
+            </p>
 
 
-                <div class="stat">
+            <div class="contact-links">
 
-                    <strong>
-                        24/7
-                    </strong>
+                <a
+                    class="contact-link"
+                    href="https://t.me/xtayzebye"
+                    target="_blank">
+                    Telegram
+                </a>
 
-                    <span>
-                        Фокус на результате
-                    </span>
-
-                </div>
+                <a
+                    class="contact-link"
+                    href="mailto:zerekxj@gmail.com">
+                    Email
+                </a>
 
             </div>
 
@@ -1758,106 +920,42 @@ footer strong {
 </section>
 
 
-<!-- ================================
-     CONTACT
-================================ -->
-
-<section
-    id="contact"
-    class="contact">
-
-    <div class="reveal">
-
-        <div class="section-label">
-            04 / Contact
-        </div>
-
-        <h2>
-
-            Давайте<br>
-            <span>работать.</span>
-
-        </h2>
-
-        <p>
-
-            Есть проект или идея?
-
-            Напишите мне —
-            обсудим задачу,
-            сроки и формат работы.
-
-        </p>
-
-        <div class="contact-links">
-
-            <a
-                href="https://t.me/xtayzebye"
-                target="_blank"
-                class="btn primary">
-
-                Telegram — @xtayzebye
-
-            </a>
-
-            <a
-                href="mailto:zerekxj@gmail.com"
-                class="btn secondary">
-
-                zerekxj@gmail.com
-
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================================
+<!-- =========================
      FOOTER
-================================ -->
+========================= -->
 
 <footer>
 
-    <div>
+    <div class="footer-inner">
 
-        © 2026
-        <strong>xtayze</strong>
+        <div>
+            © 2026 xtayze.
+        </div>
 
-    </div>
-
-    <div>
-
-        Video Editor / Motion Designer
+        <div>
+            Video Editor
+        </div>
 
     </div>
 
 </footer>
 
 
-<!-- ================================
+<!-- =========================
      VIDEO MODAL
-================================ -->
+========================= -->
 
-<div
-    class="video-modal"
-    id="videoModal">
+<div class="video-modal" id="videoModal">
 
-    <button
-        class="close-video"
-        id="closeVideo"
-        aria-label="Закрыть">
-
+    <div class="close-modal"
+         onclick="closeVideo()">
         ×
-
-    </button>
+    </div>
 
     <video
         id="modalVideo"
         controls
-        playsinline>
+        autoplay>
     </video>
 
 </div>
@@ -1865,358 +963,138 @@ footer strong {
 
 <script>
 
+/* =========================
+   VIDEO HOVER PLAY
+========================= */
 
-/* ================================
-   SCROLL ANIMATION
-================================ */
+const works = document.querySelectorAll(".work");
 
-const revealElements =
-    document.querySelectorAll(".reveal");
+works.forEach(work => {
 
-const observer =
-    new IntersectionObserver(
+    const video = work.querySelector("video");
 
-        function(entries) {
+    work.addEventListener("mouseenter", () => {
 
-            entries.forEach(
-                function(entry) {
+        video.play().catch(() => {});
 
-                    if (
-                        entry.isIntersecting
-                    ) {
+    });
 
-                        entry.target
-                            .classList
-                            .add("active");
+    work.addEventListener("mouseleave", () => {
 
-                    }
+        video.pause();
+        video.currentTime = 0;
 
-                }
-            );
+    });
 
-        },
 
-        {
-            threshold: 0.1
+    /* Mobile tap */
+
+    work.addEventListener("click", () => {
+
+        if (window.innerWidth <= 700) {
+
+            if (video.paused) {
+                video.play().catch(() => {});
+            } else {
+                video.pause();
+            }
+
         }
 
-    );
+    });
+
+});
 
 
-revealElements.forEach(
-    function(element) {
+/* =========================
+   FULLSCREEN MODAL
+========================= */
 
-        observer.observe(element);
+function openVideo(work) {
 
-    }
-);
+    const video = work.querySelector("video");
+    const modal = document.getElementById("videoModal");
+    const modalVideo = document.getElementById("modalVideo");
 
+    modalVideo.src = video.src;
 
-/* ================================
-   VIDEO ELEMENTS
-================================ */
+    modal.classList.add("active");
 
-const works =
-    document.querySelectorAll(".work");
-
-const isMobile =
-    window.matchMedia(
-        "(hover: none)"
-    ).matches;
-
-
-/* ================================
-   CHECK VIDEO FILES
-================================ */
-
-works.forEach(
-    function(work) {
-
-        const video =
-            work.querySelector("video");
-
-
-        video.addEventListener(
-            "error",
-            function() {
-
-                work.classList
-                    .add("hidden");
-
-            }
-        );
-
-
-        video.addEventListener(
-            "loadeddata",
-            function() {
-
-                work.classList
-                    .remove("hidden");
-
-            }
-        );
-
-    }
-);
-
-
-/* ================================
-   DESKTOP HOVER
-================================ */
-
-if (!isMobile) {
-
-    works.forEach(
-        function(work) {
-
-            const video =
-                work.querySelector("video");
-
-
-            work.addEventListener(
-                "mouseenter",
-                function() {
-
-                    video.currentTime = 0;
-
-                    video.play()
-                        .then(
-                            function() {
-
-                                work.classList
-                                    .add("playing");
-
-                            }
-                        )
-                        .catch(
-                            function() {}
-                        );
-
-                }
-            );
-
-
-            work.addEventListener(
-                "mouseleave",
-                function() {
-
-                    video.pause();
-
-                    video.currentTime = 0;
-
-                    work.classList
-                        .remove("playing");
-
-                }
-            );
-
-        }
-    );
+    modalVideo.play().catch(() => {});
 
 }
 
 
-/* ================================
-   MOBILE TAP
-================================ */
+function closeVideo() {
 
-if (isMobile) {
-
-    works.forEach(
-        function(work) {
-
-            const video =
-                work.querySelector("video");
-
-
-            work.addEventListener(
-                "click",
-                function(event) {
-
-                    if (
-                        event.target
-                            .tagName
-                            .toLowerCase()
-                        === "video"
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    if (video.paused) {
-
-                        video.play();
-
-                        work.classList
-                            .add("playing");
-
-                    } else {
-
-                        video.pause();
-
-                        work.classList
-                            .remove("playing");
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-}
-
-
-/* ================================
-   VIDEO MODAL
-================================ */
-
-const modal =
-    document.getElementById(
-        "videoModal"
-    );
-
-const modalVideo =
-    document.getElementById(
-        "modalVideo"
-    );
-
-const closeButton =
-    document.getElementById(
-        "closeVideo"
-    );
-
-
-works.forEach(
-    function(work) {
-
-        work.addEventListener(
-            "dblclick",
-            function() {
-
-                const video =
-                    work.querySelector("video");
-
-
-                openFullscreen(
-                    video.currentSrc ||
-                    video.src
-                );
-
-            }
-        );
-
-    }
-);
-
-
-function openFullscreen(source) {
-
-    modalVideo.src = source;
-
-    modal.classList
-        .add("active");
-
-    document.body.style.overflow =
-        "hidden";
-
-
-    modalVideo.play()
-        .catch(
-            function() {}
-        );
-
-}
-
-
-function closeFullscreen() {
+    const modal = document.getElementById("videoModal");
+    const modalVideo = document.getElementById("modalVideo");
 
     modalVideo.pause();
+    modalVideo.src = "";
 
-    modalVideo.removeAttribute(
-        "src"
-    );
-
-    modalVideo.load();
-
-    modal.classList
-        .remove("active");
-
-    document.body.style.overflow =
-        "";
+    modal.classList.remove("active");
 
 }
 
 
-closeButton.addEventListener(
-    "click",
-    function() {
+/* =========================
+   ESC CLOSE
+========================= */
 
-        closeFullscreen();
+document.addEventListener("keydown", (event) => {
 
+    if (event.key === "Escape") {
+        closeVideo();
+    }
+
+});
+
+
+/* =========================
+   REVEAL ANIMATION
+========================= */
+
+const observer = new IntersectionObserver(
+    entries => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+                entry.target.style.opacity = "1";
+                entry.target.style.transform =
+                    "translateY(0)";
+
+            }
+
+        });
+
+    },
+    {
+        threshold: 0.1
     }
 );
 
 
-modal.addEventListener(
-    "click",
-    function(event) {
+document
+.querySelectorAll(
+    ".work, .service, .about, .contact"
+)
+.forEach(element => {
 
-        if (
-            event.target === modal
-        ) {
+    element.style.opacity = "0";
+    element.style.transform =
+        "translateY(30px)";
 
-            closeFullscreen();
+    element.style.transition =
+        "opacity .7s ease, transform .7s ease";
 
-        }
+    observer.observe(element);
 
-    }
-);
-
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            closeFullscreen();
-
-        }
-
-    }
-);
-
-
-/* ================================
-   MOUSE GLOW
-================================ */
-
-const glow =
-    document.querySelector(".glow");
-
-
-document.addEventListener(
-    "mousemove",
-    function(event) {
-
-        glow.style.left =
-            event.clientX + "px";
-
-        glow.style.top =
-            event.clientY + "px";
-
-    }
-);
+});
 
 </script>
 
 </body>
-
 </html>
